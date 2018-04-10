@@ -10,6 +10,10 @@ namespace PharmacyApplication
     {
         static void Main(string[] args)
         {
+            string[] testTypes = new string[] {"float", "int", "string"};
+            string[] testLabels = new string[] {"stock", "id", "name"};
+
+            Database.CreateTable("A", "intake", testTypes, testLabels);
         }
     }
 }
