@@ -96,5 +96,44 @@ namespace PharmacyApplication
 
             return result;
         }
+
+        public static bool WriteRecordAlter(string Workbook, int lineToEdit, string stock, string id, string name)
+        {
+            bool result = false;
+
+            int lineNumber = 2;
+
+            string line = null;
+
+            string dir = Database.ROOTDRECTORY + "/" + Workbook;
+            StreamWriter sW = new StreamWriter(dir);
+            StreamReader sR = new StreamReader(dir);
+
+            // Initialises line to the current line being read
+            while ((line = sR.ReadLine()) != null)
+            {
+                // Tests if the current line is the same as the
+                // passed in lineToEdit variable
+                if (lineNumber == lineToEdit)
+                {
+                    // If the line numbers match then overwrite the line
+                    // with the passed in variables
+                    sW.WriteLine(stock + ", " + id + ", " + name);
+                    result = true;
+                }
+                else
+                {
+                    // If the lines dont match then rewrite the
+                    // line with the same data to keep the 
+                    // ReadLine() and WriteLine() in sync
+                    sW.WriteLine(line);
+                }
+                // Increment the lineNumber to keep in sync with
+                // ReadLine() and WriteLine()
+                lineNumber++;
+            }
+
+            return result;
+        }
     }
 }
