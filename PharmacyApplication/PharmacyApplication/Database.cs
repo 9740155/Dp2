@@ -102,38 +102,35 @@ namespace PharmacyApplication
         {
             bool result = false;
 
-            int lineNumber = 2;
-
-            string line = null;
+            string lineToWrite = null;
 
             string dir = Database.ROOTDRECTORY + "/" + Workbook + "/" + fileName;
-            StreamWriter sW = new StreamWriter(dir);
-            StreamReader sR = new StreamReader(dir);
 
-            // Initialises line to the current line being read
-            while ((line = sR.ReadLine()) != null)
+            using (StreamReader sR = new StreamReader(dir))
             {
-                // Tests if the current line is the same as the
-                // passed in lineToEdit variable
-                if (lineNumber == lineToEdit)
+                for (int i = 1; i <= lineToEdit; i++)
                 {
-                    // If the line numbers match then overwrite the line
-                    // with the passed in variables
-                    sW.WriteLine(stock + ", " + id + ", " + name);
-                    result = true;
+                    lineToWrite = sR.ReadLine();
                 }
-                else
-                {
-                    // If the lines dont match then rewrite the
-                    // line with the same data to keep the 
-                    // ReadLine() and WriteLine() in sync
-                    sW.WriteLine(line);
-                }
-                // Increment the lineNumber to keep in sync with
-                // ReadLine() and WriteLine()
-                lineNumber++;
             }
 
+            string[] lines = File.ReadAllLines(dir);
+
+            using (StreamWriter sW = new StreamWriter(dir))
+            {
+                for (int currentLine = 1; currentLine <= lines.Length; currentLine++)
+                {
+                    if (currentLine == lineToEdit)
+                    {
+                        sW.WriteLine(stock + ", " + id + ", " + name);
+                        result = true;
+                    }
+                    else
+                    {
+                        sW.WriteLine(lines[currentLine - 1]);
+                    }
+                }
+            }
             return result;
         }
 

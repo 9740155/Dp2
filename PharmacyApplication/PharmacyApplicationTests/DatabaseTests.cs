@@ -33,5 +33,12 @@ namespace PharmacyApplication.Tests
             object[] testObjects = Database.Read(workbook, tableName, 3);
             Assert.IsNotNull(testObjects);
         }
+
+        [TestMethod()]
+        public void WriteRecordAlterTest()
+        {
+            Assert.IsTrue(Database.WriteRecordAlter("TestData", "intake.csv", 4, "34", "10", "toothpaste"));
+            //Assert.IsFalse(Database.WriteRecordAlter("TestData", "intake.csv", 4, "34", "10", "toothpaste"));
+        }
     }
 }
