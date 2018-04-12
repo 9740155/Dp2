@@ -98,7 +98,7 @@ namespace PharmacyApplication
             return result;
         }
 
-        public static bool WriteRecordAlter(string Workbook, int lineToEdit, string stock, string id, string name)
+        public static bool WriteRecordAlter(string Workbook, string fileName, int lineToEdit, string stock, string id, string name)
         {
             bool result = false;
 
@@ -106,7 +106,7 @@ namespace PharmacyApplication
 
             string line = null;
 
-            string dir = Database.ROOTDRECTORY + "/" + Workbook;
+            string dir = Database.ROOTDRECTORY + "/" + Workbook + "/" + fileName;
             StreamWriter sW = new StreamWriter(dir);
             StreamReader sR = new StreamReader(dir);
 
