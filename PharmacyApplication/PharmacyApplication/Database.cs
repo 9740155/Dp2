@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -134,6 +135,34 @@ namespace PharmacyApplication
             }
 
             return result;
+        }
+
+        public static object[] Read(string workbook, string tableName, int lineToRead)
+        {
+            Object[] result;
+            int lineNumber =0;
+            string dir = Database.ROOTDRECTORY + "/" + workbook + "/" + tableName + Database.DEFAULTEXTENSION; ;
+            StreamReader sR = new StreamReader(dir);
+
+            string[] dataTypes;
+            string firstline = sR.ReadLine();
+            dataTypes = firstline.Split(',');
+
+            string readLine = null;
+            while ((readLine = sR.ReadLine()) != null)
+            {
+                if (lineNumber == lineToRead)
+                {
+                    result = readLine.Split(',');
+                    sR.Close();
+                    return result;
+                }
+                lineNumber++;
+            }
+            Console.WriteLine("Error line not found");
+            Debug.WriteLine("Error line not found");
+            sR.Close();
+            return null;
         }
     }
 }
