@@ -26,6 +26,17 @@ namespace PharmacyApplication
             }
         }
 
+
+        //Author: Jed
+        //Params (workbook="1997", tableName = "Stock", types = {int, string, int}, labels = {id, name, number in stock})
+        /// <summary>
+        /// Creates a new table if one dosn't already exist in the specified workbook with the specified name. Returns true if the file was created.
+        /// </summary>
+        /// <param name="Workbook"></param>
+        /// <param name="tableName"></param>
+        /// <param name="types"></param>
+        /// <param name="labels"></param>
+        /// <returns></returns>
         public static bool CreateTable(string Workbook, string tableName, string[] types, string[] labels)
         {
             bool result = false;
@@ -98,6 +109,37 @@ namespace PharmacyApplication
             return result;
         }
 
+        //Author: Jed
+        //Params (workbook="1997", tableName = "Stock")
+        /// <summary>
+        /// Deletes the specified table in the specified workbook if it exists and deletes workbook if it is empty after the delete. Returns true if a file was deleted.
+        /// </summary>
+        /// <param name="workbook"></param>
+        /// <param name="table"></param>
+        /// <returns></returns>
+        public static bool DeleteTable(string workbook, string table)
+        {
+            bool result = false;
+
+            string wdir = Database.ROOTDRECTORY + "/" + workbook;
+            string fdir = wdir + "/" + table + Database.DEFAULTEXTENSION;
+
+            if(File.Exists(fdir))
+            {
+                File.Delete(fdir);
+
+                if (Directory.GetFiles(wdir).Length <= 0)
+                {
+                    Directory.Delete(wdir);
+                }
+
+                result = true;
+            }            
+
+            return result;
+        }
+
+        //TODO this method needs to ask for a parameter "table" and access root/workbook/table.csv look at code for creating table
         public static bool WriteRecordAlter(string Workbook, int lineToEdit, string stock, string id, string name)
         {
             bool result = false;
