@@ -10,6 +10,7 @@ namespace PharmacyApplication
 {
     public static class Database
     {
+        //WARNING: This helps the database find files its already created, changing this will essentially remove access for the database to existing files.
         public static string ROOTDRECTORY
         {
             get
@@ -32,10 +33,10 @@ namespace PharmacyApplication
         /// <summary>
         /// Creates a new table if one dosn't already exist in the specified workbook with the specified name. Returns true if the file was created.
         /// </summary>
-        /// <param name="Workbook"></param>
-        /// <param name="tableName"></param>
-        /// <param name="types"></param>
-        /// <param name="labels"></param>
+        /// <param name="Workbook">The workbook to be accessed or created</param>
+        /// <param name="tableName">The table in the workbook to be created</param>
+        /// <param name="types">The types of data to be stored in each column</param>
+        /// <param name="labels">The titles of each of the columns</param>
         /// <returns></returns>
         public static bool CreateTable(string Workbook, string tableName, string[] types, string[] labels)
         {
@@ -114,8 +115,8 @@ namespace PharmacyApplication
         /// <summary>
         /// Deletes the specified table in the specified workbook if it exists and deletes workbook if it is empty after the delete. Returns true if a file was deleted.
         /// </summary>
-        /// <param name="workbook"></param>
-        /// <param name="table"></param>
+        /// <param name="workbook">The workbook to be accessed and/or deleted</param>
+        /// <param name="table">The table in the workbook to be deleted</param>
         /// <returns></returns>
         public static bool DeleteTable(string workbook, string table)
         {
