@@ -127,10 +127,15 @@ namespace PharmacyApplication.Tests
         [TestMethod()]
         public void ReadTest()
         {
-            Database.CreateTable(workbook, tableName, testTypes, testLabels);
-            Database.WriteRecordAlter(workbook, 1, tableName, "1234", "Apples");
-            object[] testObjects = Database.Read(workbook, tableName, 1);
+            object[] testObjects = Database.Read(workbook, "stock", 1);
+            for (int i = 0; i < 3; i++)
+            {
+                Console.WriteLine(testObjects[i]);
+            }
             Assert.IsNotNull(testObjects);
+            Assert.AreEqual(testObjects[0],"0");
+            Assert.AreEqual(testObjects[1], "Sunnies");
+            Assert.AreEqual(testObjects[2], "32");
         }
     }
 }

@@ -183,7 +183,7 @@ namespace PharmacyApplication
         public static object[] Read(string workbook, string tableName, int lineToRead)
         {
             Object[] result;
-            int lineNumber =0;
+            int lineNumber = 1;
             string dir = Database.ROOTDRECTORY + "/" + workbook + "/" + tableName + Database.DEFAULTEXTENSION; ;
             StreamReader sR = new StreamReader(dir);
 
