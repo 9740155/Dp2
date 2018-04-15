@@ -190,7 +190,10 @@ namespace PharmacyApplication
             string[] dataTypes;
             string firstline = sR.ReadLine();
             dataTypes = firstline.Split(',');
-
+            string[] labels;
+            string secoundLine = sR.ReadLine();
+            labels = secoundLine.Split(',');
+            
             string readLine = null;
             while ((readLine = sR.ReadLine()) != null)
             {
@@ -227,6 +230,11 @@ namespace PharmacyApplication
             }
 
             return result;
+        }
+
+        public static void AddStockType()
+        {
+
         }
     }
 }

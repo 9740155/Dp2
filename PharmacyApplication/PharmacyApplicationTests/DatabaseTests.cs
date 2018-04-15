@@ -23,7 +23,7 @@ namespace PharmacyApplication.Tests
         [TestInitialize()]
         public void Initialize()
         {
-             Database.CreateTable(workbook, tableName, testTypes, testLabels);
+
         }
 
         [TestMethod()]
@@ -123,7 +123,9 @@ namespace PharmacyApplication.Tests
         [TestMethod()]
         public void ReadTest()
         {
-            object[] testObjects = Database.Read(workbook, tableName, 3);
+            Database.CreateTable(workbook, tableName, testTypes, testLabels);
+            Database.WriteRecordAlter(workbook, 1, tableName, "1234", "Apples");
+            object[] testObjects = Database.Read(workbook, tableName, 1);
             Assert.IsNotNull(testObjects);
         }
     }
