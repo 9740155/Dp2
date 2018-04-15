@@ -150,10 +150,19 @@ namespace PharmacyApplication.Tests
         [TestMethod()]
         public void AddNewStockTypeTest()
         {
-            StockType apples = new StockType(4,"apples", 23);
-            Database.AddNewStockType(apples,workbook);
+            StockType apples = new StockType(4, "apples", 23);
+            Database.AddNewStockType(apples, workbook);
             Assert.Fail(); // TODO need to test WriteLine first
 
+        }
+
+        [TestMethod()]
+        public void WriteRecordAlterTest()
+        {
+            // Should pass it there is a test data file that has 4 or more lines.
+            Assert.IsTrue(Database.WriteRecordAlter("TestData", "TestFile", 4, "15", "32", "toothpaste"));
+            // Should pass if there is a test data file that has less than 100 lines.
+            Assert.IsFalse(Database.WriteRecordAlter("TestData", "TestFile", 100, "15", "32", "toothpaste"));
         }
     }
 }

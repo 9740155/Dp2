@@ -142,7 +142,7 @@ namespace PharmacyApplication
         }
 
         //TODO this method needs to ask for a parameter "table" and access root/workbook/table.csv look at code for creating table
-        public static bool WriteRecordAlter(string Workbook, int lineToEdit, string stock, string id, string name)
+        public static bool WriteRecordAlter(string Workbook, string Table, int lineToEdit, string stock, string id, string name)
         {
             bool result = false;
 
@@ -150,7 +150,7 @@ namespace PharmacyApplication
 
             string line = null;
 
-            string dir = Database.ROOTDRECTORY + "/" + Workbook;
+            string dir = Database.ROOTDRECTORY + "/" + Workbook + "/" + Table;
             StreamWriter sW = new StreamWriter(dir);
             StreamReader sR = new StreamReader(dir);
 
@@ -246,8 +246,7 @@ namespace PharmacyApplication
         {
             string StockTable = "stock";
             int endLine = FindEndLineNumber(workbook, StockTable) + 1 ;
-            WriteRecordAlter(workbook, endLine, addedStockType.Level.ToString(), addedStockType.ID.ToString(),
-                addedStockType.Name);
+            WriteRecordAlter(workbook, endLine, addedStockType.Level.ToString(), addedStockType.ID.ToString(), addedStockType.Name);
         }
 
         public static int FindEndLineNumber(string workBook, string tableName)
