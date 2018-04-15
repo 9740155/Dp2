@@ -23,7 +23,7 @@ namespace PharmacyApplication.Tests
         [TestInitialize()]
         public void Initialize()
         {
-
+            Database.CreateTable(workbook, tableName, testTypes, testLabels);
         }
 
         [TestMethod()]
@@ -120,7 +120,7 @@ namespace PharmacyApplication.Tests
                 //nothing
             }
 
-            
+
             Assert.IsTrue(Database.CreateTable(book, table, testTypes, testLabels));
         }
 
@@ -133,9 +133,27 @@ namespace PharmacyApplication.Tests
                 Console.WriteLine(testObjects[i]);
             }
             Assert.IsNotNull(testObjects);
-            Assert.AreEqual(testObjects[0],"0");
+            Assert.AreEqual(testObjects[0], "0");
             Assert.AreEqual(testObjects[1], "Sunnies");
             Assert.AreEqual(testObjects[2], "32");
+        }
+
+        [TestMethod()]
+        public void FindEndLineNumberTest()
+        {
+            Database.FindEndLineNumber(workbook, tableName);
+            Assert.AreEqual(Database.FindEndLineNumber(workbook, tableName), 0);
+            Assert.AreEqual(Database.FindEndLineNumber(workbook, "stock"), 3);
+
+        }
+
+        [TestMethod()]
+        public void AddNewStockTypeTest()
+        {
+            StockType apples = new StockType(4,"apples", 23);
+            Database.AddNewStockType(apples,workbook);
+            Assert.Fail(); // TODO need to test WriteLine first
+
         }
     }
 }

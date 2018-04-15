@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -241,9 +242,26 @@ namespace PharmacyApplication
             return result;
         }
 
-        public static void AddStockType()
+        public static void AddNewStockType(StockType addedStockType,string workbook)
         {
+            string StockTable = "stock";
+            int endLine = FindEndLineNumber(workbook, StockTable) + 1 ;
+            WriteRecordAlter(workbook, endLine, addedStockType.Level.ToString(), addedStockType.ID.ToString(),
+                addedStockType.Name);
+        }
 
+        public static int FindEndLineNumber(string workBook, string tableName)
+        {
+            string readLine = null;
+            string dir = Database.ROOTDRECTORY + "/" + workBook + "/" + tableName + Database.DEFAULTEXTENSION;
+            StreamReader sR = new StreamReader(dir);
+            int lineNumber = -2;
+            while ((readLine = sR.ReadLine()) != null)
+            {
+                lineNumber++;
+            }
+            sR.Close();
+            return lineNumber;
         }
     }
 }
