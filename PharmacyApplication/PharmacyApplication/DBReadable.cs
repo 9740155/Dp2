@@ -75,6 +75,23 @@ namespace PharmacyApplication
                     }
                 }
             }
+
+            else
+            {
+                string msg = "";
+
+                if ((elements == null))
+                {
+                    msg += "The Elements array was null during a call to Read Generic\n";
+                }
+
+                if ((FieldTypesToRead == null))
+                {
+                    msg += "The FieldTypeToRead array was null during a call to Read Generic\n";
+                }
+
+                throw new PAReadException(msg);
+            }
         }
     }
 }

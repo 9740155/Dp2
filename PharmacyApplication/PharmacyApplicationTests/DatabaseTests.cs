@@ -50,30 +50,33 @@ namespace PharmacyApplication.Tests
         public void CreateTableSucceed()
         {
             string table = "CreateTest";
+            string book = "NothingElse";
 
             //Delete any table that's already there, otherwise the creation wil return false
-            Database.DeleteTable(workbook, table);
+            Database.DeleteTable(book, table);
 
-            Assert.IsTrue(Database.CreateTable(workbook, table, testTypes, testLabels));
+            Assert.IsTrue(Database.CreateTable(book, table, testTypes, testLabels));
         }
 
         [TestMethod()]
         public void CreateTableFail()
         {
             string table = "CreateTest";
+            string book = "BothingElse";
 
-            Database.CreateTable(workbook, "CreateTest", testTypes, testLabels);
+            Database.CreateTable(book, "CreateTest", testTypes, testLabels);
 
             //Fails because table already exists
-            Assert.IsFalse(Database.CreateTable(workbook, table, testTypes, testLabels));
+            Assert.IsFalse(Database.CreateTable(book, table, testTypes, testLabels));
         }
 
         [TestMethod()]
         public void CreateTableBoundaryDirectoryMissing()
         {
             string table = "CreateTest";
+            string book = "BothingElse";
 
-            string dir = Database.ROOTDRECTORY + "/" + workbook;
+            string dir = Database.ROOTDRECTORY + "/" + book;
 
             try
             {
@@ -86,15 +89,16 @@ namespace PharmacyApplication.Tests
             }
 
             Assert.IsFalse(Directory.Exists(dir));
-            Assert.IsTrue(Database.CreateTable(workbook, table, testTypes, testLabels));
+            Assert.IsTrue(Database.CreateTable(book, table, testTypes, testLabels));
         }
 
         [TestMethod()]
         public void CreateTableBoundaryDirectoryExists()
         {
             string table = "CreateTest";
+            string book = "BothingElse";
 
-            string dir = Database.ROOTDRECTORY + "/" + workbook;
+            string dir = Database.ROOTDRECTORY + "/" + book;
 
             try
             {
@@ -117,7 +121,7 @@ namespace PharmacyApplication.Tests
             }
 
             
-            Assert.IsTrue(Database.CreateTable(workbook, table, testTypes, testLabels));
+            Assert.IsTrue(Database.CreateTable(book, table, testTypes, testLabels));
         }
 
         [TestMethod()]
