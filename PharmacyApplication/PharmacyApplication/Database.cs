@@ -207,5 +207,26 @@ namespace PharmacyApplication
             sR.Close();
             return null;
         }
+
+        //Author: Jed
+        /// <summary>
+        /// Reads data from the specified table returning a StockType with the coressponding ID if one exists else returns null
+        /// </summary>
+        /// <param name="workbook"></param>
+        /// <param name="table"></param>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public static StockType ReadStockType(string workbook, string table, int ID)
+        {
+            throw new NotImplementedException();
+            StockType result = null;
+
+            //Loop until either a StockType with the right ID is found or the end of table is singnaled via an exception being thrown
+            while(true)
+            {
+            }
+
+            return result;
+        }
     }
 }
