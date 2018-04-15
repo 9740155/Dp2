@@ -49,6 +49,7 @@
     <Compile Include="PAReadException.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SalesRecord.cs" />
     <Compile Include="StockType.cs" />
     <Compile Include="UserInterfaces\StockTypeDisplay.cs">
       <SubType>Form</SubType>
