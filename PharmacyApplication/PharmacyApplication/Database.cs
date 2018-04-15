@@ -140,14 +140,13 @@ namespace PharmacyApplication
             return result;
         }
 
-        //TODO this method needs to ask for a parameter "table" and access root/workbook/table.csv look at code for creating table
-        public static bool WriteRecordAlter(string Workbook, int lineToEdit, string stock, string id, string name)
+        public static bool WriteRecordAlter(string Workbook, string Table, int lineToEdit, string stock, string id, string name)
         {
             bool result = false;
 
             string lineToWrite = null;
 
-            string dir = Database.ROOTDRECTORY + "/" + Workbook + "/" + fileName;
+            string dir = Database.ROOTDRECTORY + "/" + Workbook + "/" + Table;
 
             using (StreamReader sR = new StreamReader(dir))
             {

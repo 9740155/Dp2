@@ -231,7 +231,7 @@ namespace PharmacyApplication.Tests
         [TestMethod()]
         public void WriteRecordAlterTest()
         {
-            Assert.IsTrue(Database.WriteRecordAlter("TestData", "intake.csv", 4, "34", "10", "toothpaste"));
+            Assert.IsTrue(Database.WriteRecordAlter("TestData", "intake.csv", 4, "46", "20", "testdata"));
             //Assert.IsFalse(Database.WriteRecordAlter("TestData", "intake.csv", 4, "34", "10", "toothpaste"));
         }
     }
