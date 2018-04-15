@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PharmacyApplication;
 
 namespace PharmacyApplication.Tests
 {
@@ -117,6 +118,107 @@ namespace PharmacyApplication.Tests
 
             
             Assert.IsTrue(Database.CreateTable(workbook, table, testTypes, testLabels));
+        }
+
+        [TestMethod()]
+        public void StockTypeInitialisationSucceed()
+        {
+            int id = 700;
+            string name = "berries";
+            int level = 40;
+
+            StockType toTest = new StockType(id, name, level);
+
+            /*Assert.AreEqual(id, toTest.ID);
+            Assert.AreEqual(name, toTest.Name);
+            Assert.AreEqual(level, toTest.Level);//*/
+        }
+
+        [TestMethod()]
+        public void StockTypeInitialisationFailID()
+        {
+            int id = 700;
+            string name = "berries";
+            int level = 40;
+
+            StockType toTest = new StockType(id, name, level);
+
+            toTest.ID -= 50;
+
+            Assert.AreNotEqual(id, toTest.ID);
+            Assert.AreEqual(name, toTest.Name);
+            Assert.AreEqual(level, toTest.Level);
+        }
+
+        [TestMethod()]
+        public void StockTypeInitialisationFailName()
+        {
+            int id = 700;
+            string name = "berries";
+            int level = 40;
+
+            StockType toTest = new StockType(id, name, level);
+
+            toTest.Name = "BlueBerries";
+
+            Assert.AreEqual(id, toTest.ID);
+            Assert.AreNotEqual(name, toTest.Name);
+            Assert.AreEqual(level, toTest.Level);
+        }
+
+        [TestMethod()]
+        public void StockTypeInitialisationFailLevelIncrement()
+        {
+            int id = 700;
+            string name = "berries";
+            int level = 40;
+
+            StockType toTest = new StockType(id, name, level);
+
+            toTest.Level += 1;
+
+            Assert.AreEqual(id, toTest.ID);
+            Assert.AreEqual(name, toTest.Name);
+            Assert.AreNotEqual(level, toTest.Level);
+        }
+
+        [TestMethod()]
+        public void StockTypeInitialisationFailLevelDecrement()
+        {
+            int id = 700;
+            string name = "berries";
+            int level = 40;
+
+            StockType toTest = new StockType(id, name, level);
+
+            toTest.Level -= 1;
+
+            Assert.AreEqual(id, toTest.ID);
+            Assert.AreEqual(name, toTest.Name);
+            Assert.AreNotEqual(level, toTest.Level);
+        }
+
+        public void IDBReadable ()
+        {
+            int id = 700;
+            string name = "berries";
+            int level = 40;
+
+            StockType toTest = new StockType(id, name, level);
+
+            int stuffid = 4;
+            string stuffName = "Strepsols";
+            int stuffLevel = 15;
+
+            object[] stuff = new object[] { stuffid, stuffName, stuffLevel};
+
+            Assert.AreNotEqual(id, toTest.ID);
+            Assert.AreNotEqual(name, toTest.Name);
+            Assert.AreNotEqual(level, toTest.Level);
+
+            Assert.AreEqual(stuffid, toTest.ID);
+            Assert.AreEqual(stuffName, toTest.Name);
+            Assert.AreEqual(stuffLevel, toTest.Level);
         }
 
         [TestMethod()]
