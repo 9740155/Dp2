@@ -19,7 +19,9 @@ namespace PharmacyApplication
 
             Form f = new Form();
 
-            StockTypeDisplay std = new StockTypeDisplay("1997", "intake", 0);
+            //StockType st = Database.ReadStockType("1997", "stock", 0);
+
+            StockTypeDisplay std = new StockTypeDisplay("1997", "stock", 0);
 
             std.ShowDialog();
         }

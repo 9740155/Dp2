@@ -205,25 +205,34 @@ namespace PharmacyApplication
             Console.WriteLine("Error line not found");
             Debug.WriteLine("Error line not found");
             sR.Close();
-            return null;
+
+            //Throw exception to mark EOF, instead of return null
+            throw new EndOfStreamException();
         }
 
         //Author: Jed
         /// <summary>
-        /// Reads data from the specified table returning a StockType with the coressponding ID if one exists else returns null
+        /// Reads data from the specified table returning a StockType if one exists at the given index else returns null
         /// </summary>
         /// <param name="workbook"></param>
         /// <param name="table"></param>
         /// <param name="ID"></param>
         /// <returns></returns>
-        public static StockType ReadStockType(string workbook, string table, int ID)
+        public static StockType ReadStockType(string workbook, string table, int indexToRead)
         {
-            throw new NotImplementedException();
             StockType result = null;
 
-            //Loop until either a StockType with the right ID is found or the end of table is singnaled via an exception being thrown
-            while(true)
+            object[] vals = Database.Read(workbook, table, indexToRead);
+
+            if (vals == null)
             {
+                //Assumed error code, just return null
+                result = null;
+            }
+
+            else
+            {
+                result = new StockType(vals);
             }
 
             return result;

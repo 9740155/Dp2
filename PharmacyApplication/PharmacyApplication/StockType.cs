@@ -73,11 +73,16 @@ namespace PharmacyApplication
         }
 
 
-        public StockType(int id, string name, int level)
+        public StockType(int id, string name, int level) : base()
         {
             this.ID = id;
             this.Name = name;
             this.Level = level;
+        }
+
+        public StockType(object[] objs):base()
+        {
+            this.ReadFromGeneric(objs);
         }
     }
 }
