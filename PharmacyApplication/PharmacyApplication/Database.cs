@@ -141,6 +141,16 @@ namespace PharmacyApplication
             return result;
         }
 
+        //appends a record to a table
+        public static bool WriteRecord(string Workbook, string Table, string stock, string id, string name)
+        {
+            StreamWriter writer = new StreamWriter(ROOTDRECTORY + "/" + Workbook + "/" + Table, true); //opens file in append mode
+            writer.WriteLine(stock + ", " + id + ", " + name);
+            writer.Close();
+            return true;
+
+        }
+
         //TODO this method needs to ask for a parameter "table" and access root/workbook/table.csv look at code for creating table
         public static bool WriteRecordAlter(string Workbook, string Table, int lineToEdit, string stock, string id, string name)
         {
