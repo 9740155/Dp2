@@ -156,6 +156,13 @@ namespace PharmacyApplication.Tests
 
         }
 
+
+        [TestMethod()]
+        public void WriteRecordTest()
+        {
+            Assert.IsTrue(Database.WriteRecord(workbook, tableName, "3", "10", "banana"));
+        }
+
         [TestMethod()]
         public void WriteRecordAlterTest()
         {
