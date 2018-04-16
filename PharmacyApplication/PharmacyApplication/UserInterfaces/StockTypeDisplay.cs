@@ -29,6 +29,9 @@ namespace PharmacyApplication.UserInterfaces
         private const int LABELWIDTH = 50;
         private const int BUTTONSIZE = 25;
 
+        //The offset from 0 which is expected in reading using Database.Read()
+        private const int READINDEXOFFSET = 0;
+
         public StockTypeDisplay(string workbook, string table, int index)
         {
             _workbook = workbook;
@@ -152,8 +155,6 @@ namespace PharmacyApplication.UserInterfaces
         /// </summary>
         public void UpdateOutputs()
         {
-            //TODO, from Jed read this from the Database using _workbook, _table, _indexOfStockType;
-
             StockType toDisplay = Database.ReadStockType(_workbook, _table, _indexOfStockType);
 
             if(toDisplay == null)
@@ -179,7 +180,9 @@ namespace PharmacyApplication.UserInterfaces
             //Used for refusing reads passed end of file
             int oldIndex = _indexOfStockType;
 
-            if (index >= 0)
+            int toFind = 0 + READINDEXOFFSET;
+
+            if (index >= toFind)
             {
                 _indexOfStockType = index;
                 result = true;
@@ -187,9 +190,8 @@ namespace PharmacyApplication.UserInterfaces
 
             else
             {
-                index = 0;
+                index = toFind;
             }
-
 
             if(result)
             {
