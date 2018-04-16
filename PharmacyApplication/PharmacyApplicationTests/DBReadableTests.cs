@@ -22,6 +22,8 @@ namespace PharmacyApplicationTests
 
             object[] stuff = new object[] { stuffid, stuffName, stuffLevel };
 
+            toTest.ReadFromGeneric(stuff);
+
             Assert.AreNotEqual(id, toTest.ID);
             Assert.AreNotEqual(name, toTest.Name);
             Assert.AreNotEqual(level, toTest.Level);
