@@ -141,7 +141,6 @@ namespace PharmacyApplication
             return result;
         }
 
-        //TODO this method needs to ask for a parameter "table" and access root/workbook/table.csv look at code for creating table
         public static bool WriteRecordAlter(string Workbook, string Table, int lineToEdit, string stock, string id, string name)
         {
             bool result = false;
