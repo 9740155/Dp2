@@ -142,8 +142,6 @@ namespace PharmacyApplication
             return result;
         }
 
-<<<<<<< HEAD
-=======
         //appends a record to a table
         public static bool WriteRecord(string Workbook, string Table, string stock, string id, string name)
         {
@@ -155,7 +153,6 @@ namespace PharmacyApplication
         }
 
         //TODO this method needs to ask for a parameter "table" and access root/workbook/table.csv look at code for creating table
->>>>>>> b61dc3443ffc98192a1d0aaecd876cdfec527c39
         public static bool WriteRecordAlter(string Workbook, string Table, int lineToEdit, string stock, string id, string name)
         {
             bool result = false;

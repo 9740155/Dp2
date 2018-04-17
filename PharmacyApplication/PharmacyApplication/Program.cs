@@ -20,7 +20,8 @@ namespace PharmacyApplication
 
             //StockType st = Database.ReadStockType("1997", "stock", 0);
 
-            StockTypeDisplay std = new StockTypeDisplay("1997", "stock", 0);
+            //StockTypeDisplay std = new StockTypeDisplay("1997", "stock", 0);
+            DisplaySalesRecord std = new DisplaySalesRecord("1997", "stock", 0);
 
             std.ShowDialog();
         }
