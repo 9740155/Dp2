@@ -15,8 +15,8 @@ namespace PharmacyApplication.Tests
     {
         //All global test variable MUST be constant, somone else will come along and change them just so your test won't work
         const string workbook = "Tests";
-        const string tableName = "Test Slock Levels";
-        readonly string[] testTypes = new string[] { "float", "int", "string" };
+        const string tableName = "Test Stock Levels";
+        readonly Type[] testTypes = new Type[] { typeof(float),typeof(int), typeof(string)};
         readonly string[] testLabels = new string[] { "stock", "id", "name" };
 
 
@@ -62,7 +62,7 @@ namespace PharmacyApplication.Tests
         public void CreateTableFail()
         {
             string table = "CreateTest";
-            string book = "BothingElse";
+            string book = "NothingElse";
 
             Database.CreateTable(book, "CreateTest", testTypes, testLabels);
 
@@ -74,7 +74,7 @@ namespace PharmacyApplication.Tests
         public void CreateTableBoundaryDirectoryMissing()
         {
             string table = "CreateTest";
-            string book = "BothingElse";
+            string book = "NothingElse";
 
             string dir = Database.ROOTDRECTORY + "/" + book;
 
@@ -96,7 +96,7 @@ namespace PharmacyApplication.Tests
         public void CreateTableBoundaryDirectoryExists()
         {
             string table = "CreateTest";
-            string book = "BothingElse";
+            string book = "NothingElse";
 
             string dir = Database.ROOTDRECTORY + "/" + book;
 
@@ -127,15 +127,12 @@ namespace PharmacyApplication.Tests
         [TestMethod()]
         public void ReadTest()
         {
-            object[] testObjects = Database.Read(workbook, "stock", 1);
-            for (int i = 0; i < 3; i++)
-            {
-                Console.WriteLine(testObjects[i]);
-            }
+            object[] testObjects = Database.Read(workbook, tableName, 0);
+
             Assert.IsNotNull(testObjects);
-            Assert.AreEqual(testObjects[0], "0");
-            Assert.AreEqual(testObjects[1], "Sunnies");
-            Assert.AreEqual(testObjects[2], "32");
+            Assert.AreEqual(29756, testObjects[0]);
+            Assert.AreEqual("Sunnies", testObjects[1]);
+            Assert.AreEqual(32, testObjects[2]);
         }
 
         [TestMethod()]
@@ -154,6 +151,13 @@ namespace PharmacyApplication.Tests
             Database.AddNewStockType(apples, workbook);
             Assert.Fail(); // TODO need to test WriteLine first
 
+        }
+
+
+        [TestMethod()]
+        public void WriteRecordTest()
+        {
+            Assert.IsTrue(Database.WriteRecord(workbook, tableName, "3", "10", "banana"));
         }
 
         [TestMethod()]
