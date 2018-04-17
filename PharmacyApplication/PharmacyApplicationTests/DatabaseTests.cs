@@ -15,15 +15,15 @@ namespace PharmacyApplication.Tests
     {
         //All global test variable MUST be constant, somone else will come along and change them just so your test won't work
         const string workbook = "Tests";
-        const string tableName = "Test Slock Levels";
-        readonly string[] testTypes = new string[] { "float", "int", "string" };
+        const string tableName = "Test Stock Levels";
+        readonly Type[] testTypes = new Type[] { typeof(float),typeof(int), typeof(string)};
         readonly string[] testLabels = new string[] { "stock", "id", "name" };
 
 
         [TestInitialize()]
         public void Initialize()
         {
-             Database.CreateTable(workbook, tableName, testTypes, testLabels);
+            Database.CreateTable(workbook, tableName, testTypes, testLabels);
         }
 
         [TestMethod()]
@@ -50,30 +50,33 @@ namespace PharmacyApplication.Tests
         public void CreateTableSucceed()
         {
             string table = "CreateTest";
+            string book = "NothingElse";
 
             //Delete any table that's already there, otherwise the creation wil return false
-            Database.DeleteTable(workbook, table);
+            Database.DeleteTable(book, table);
 
-            Assert.IsTrue(Database.CreateTable(workbook, table, testTypes, testLabels));
+            Assert.IsTrue(Database.CreateTable(book, table, testTypes, testLabels));
         }
 
         [TestMethod()]
         public void CreateTableFail()
         {
             string table = "CreateTest";
+            string book = "NothingElse";
 
-            Database.CreateTable(workbook, "CreateTest", testTypes, testLabels);
+            Database.CreateTable(book, "CreateTest", testTypes, testLabels);
 
             //Fails because table already exists
-            Assert.IsFalse(Database.CreateTable(workbook, table, testTypes, testLabels));
+            Assert.IsFalse(Database.CreateTable(book, table, testTypes, testLabels));
         }
 
         [TestMethod()]
         public void CreateTableBoundaryDirectoryMissing()
         {
             string table = "CreateTest";
+            string book = "NothingElse";
 
-            string dir = Database.ROOTDRECTORY + "/" + workbook;
+            string dir = Database.ROOTDRECTORY + "/" + book;
 
             try
             {
@@ -86,15 +89,16 @@ namespace PharmacyApplication.Tests
             }
 
             Assert.IsFalse(Directory.Exists(dir));
-            Assert.IsTrue(Database.CreateTable(workbook, table, testTypes, testLabels));
+            Assert.IsTrue(Database.CreateTable(book, table, testTypes, testLabels));
         }
 
         [TestMethod()]
         public void CreateTableBoundaryDirectoryExists()
         {
             string table = "CreateTest";
+            string book = "NothingElse";
 
-            string dir = Database.ROOTDRECTORY + "/" + workbook;
+            string dir = Database.ROOTDRECTORY + "/" + book;
 
             try
             {
@@ -116,116 +120,53 @@ namespace PharmacyApplication.Tests
                 //nothing
             }
 
-            
-            Assert.IsTrue(Database.CreateTable(workbook, table, testTypes, testLabels));
-        }
 
-        [TestMethod()]
-        public void StockTypeInitialisationSucceed()
-        {
-            int id = 700;
-            string name = "berries";
-            int level = 40;
-
-            StockType toTest = new StockType(id, name, level);
-
-            /*Assert.AreEqual(id, toTest.ID);
-            Assert.AreEqual(name, toTest.Name);
-            Assert.AreEqual(level, toTest.Level);//*/
-        }
-
-        [TestMethod()]
-        public void StockTypeInitialisationFailID()
-        {
-            int id = 700;
-            string name = "berries";
-            int level = 40;
-
-            StockType toTest = new StockType(id, name, level);
-
-            toTest.ID -= 50;
-
-            Assert.AreNotEqual(id, toTest.ID);
-            Assert.AreEqual(name, toTest.Name);
-            Assert.AreEqual(level, toTest.Level);
-        }
-
-        [TestMethod()]
-        public void StockTypeInitialisationFailName()
-        {
-            int id = 700;
-            string name = "berries";
-            int level = 40;
-
-            StockType toTest = new StockType(id, name, level);
-
-            toTest.Name = "BlueBerries";
-
-            Assert.AreEqual(id, toTest.ID);
-            Assert.AreNotEqual(name, toTest.Name);
-            Assert.AreEqual(level, toTest.Level);
-        }
-
-        [TestMethod()]
-        public void StockTypeInitialisationFailLevelIncrement()
-        {
-            int id = 700;
-            string name = "berries";
-            int level = 40;
-
-            StockType toTest = new StockType(id, name, level);
-
-            toTest.Level += 1;
-
-            Assert.AreEqual(id, toTest.ID);
-            Assert.AreEqual(name, toTest.Name);
-            Assert.AreNotEqual(level, toTest.Level);
-        }
-
-        [TestMethod()]
-        public void StockTypeInitialisationFailLevelDecrement()
-        {
-            int id = 700;
-            string name = "berries";
-            int level = 40;
-
-            StockType toTest = new StockType(id, name, level);
-
-            toTest.Level -= 1;
-
-            Assert.AreEqual(id, toTest.ID);
-            Assert.AreEqual(name, toTest.Name);
-            Assert.AreNotEqual(level, toTest.Level);
-        }
-
-        public void IDBReadable ()
-        {
-            int id = 700;
-            string name = "berries";
-            int level = 40;
-
-            StockType toTest = new StockType(id, name, level);
-
-            int stuffid = 4;
-            string stuffName = "Strepsols";
-            int stuffLevel = 15;
-
-            object[] stuff = new object[] { stuffid, stuffName, stuffLevel};
-
-            Assert.AreNotEqual(id, toTest.ID);
-            Assert.AreNotEqual(name, toTest.Name);
-            Assert.AreNotEqual(level, toTest.Level);
-
-            Assert.AreEqual(stuffid, toTest.ID);
-            Assert.AreEqual(stuffName, toTest.Name);
-            Assert.AreEqual(stuffLevel, toTest.Level);
+            Assert.IsTrue(Database.CreateTable(book, table, testTypes, testLabels));
         }
 
         [TestMethod()]
         public void ReadTest()
         {
-            object[] testObjects = Database.Read(workbook, tableName, 3);
+            object[] testObjects = Database.Read(workbook, tableName, 0);
+
             Assert.IsNotNull(testObjects);
+            Assert.AreEqual(29756, testObjects[0]);
+            Assert.AreEqual("Sunnies", testObjects[1]);
+            Assert.AreEqual(32, testObjects[2]);
+        }
+
+        [TestMethod()]
+        public void FindEndLineNumberTest()
+        {
+            Database.FindEndLineNumber(workbook, tableName);
+            Assert.AreEqual(Database.FindEndLineNumber(workbook, tableName), 0);
+            Assert.AreEqual(Database.FindEndLineNumber(workbook, "stock"), 3);
+
+        }
+
+        [TestMethod()]
+        public void AddNewStockTypeTest()
+        {
+            StockType apples = new StockType(4, "apples", 23);
+            Database.AddNewStockType(apples, workbook);
+            Assert.Fail(); // TODO need to test WriteLine first
+
+        }
+
+
+        [TestMethod()]
+        public void WriteRecordTest()
+        {
+            Assert.IsTrue(Database.WriteRecord(workbook, tableName, "3", "10", "banana"));
+        }
+
+        [TestMethod()]
+        public void WriteRecordAlterTest()
+        {
+            // Should pass it there is a test data file that has 4 or more lines.
+            Assert.IsTrue(Database.WriteRecordAlter("TestData", "TestFile", 4, "15", "32", "toothpaste"));
+            // Should pass if there is a test data file that has less than 100 lines.
+            Assert.IsFalse(Database.WriteRecordAlter("TestData", "TestFile", 100, "15", "32", "toothpaste"));
         }
 
         [TestMethod()]

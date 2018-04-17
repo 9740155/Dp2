@@ -52,7 +52,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="DatabaseTests.cs" />
+    <Compile Include="DBReadableTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StockTypeTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PharmacyApplication\PharmacyApplication.csproj">
