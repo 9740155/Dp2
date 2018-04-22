@@ -35,6 +35,14 @@ namespace PharmacyApplication
             }
         }
 
+        public object[] Elements
+        {
+            get
+            {
+                return _elements;
+            }
+        }
+
         //Author: Jed        
         /// <summary>
         /// Reads a generic object array, vetts it to make sure the types of the generic object match the type expected atthat index

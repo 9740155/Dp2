@@ -149,10 +149,54 @@ namespace PharmacyApplication
             writer.WriteLine(stock + ", " + id + ", " + name);
             writer.Close();
             return true;
-
         }
 
-        //TODO this method needs to ask for a parameter "table" and access root/workbook/table.csv look at code for creating table
+        //Author: Jed
+        /// <summary>
+        /// Writes DBReadable objects into a table
+        /// </summary>
+        /// <param name="Workbook"></param>
+        /// <param name="Table"></param>
+        /// <param name="toWrite"></param>
+        /// <returns></returns>
+        public static bool WriteRecord(string workbook, string table, object[] toWrite)
+        {
+            string dir = Database.ROOTDRECTORY + "/" + workbook + "/" + table + Database.DEFAULTEXTENSION;
+            bool result = false;
+
+            if (File.Exists(dir))
+            {
+                StreamWriter writer = new StreamWriter(dir, true); //opens file in append mode
+
+                int i = 0;
+                while (i < toWrite.Length)
+                {
+                    writer.Write(toWrite[i].ToString());
+
+                    if(i < (toWrite.Length - 1))
+                    {
+                        writer.Write(",");
+                    }    
+
+                    i += 1;
+                }
+
+                writer.WriteLine();//End entry
+
+                writer.Close();
+
+                result = true;
+            }
+
+            else
+            {
+                result = false;
+                Console.WriteLine(dir + " dosn't exist");
+            }
+
+            return result;
+        }
+
         public static bool WriteRecordAlter(string Workbook, string Table, int lineToEdit, string stock, string id, string name)
         {
             bool result = false;
@@ -302,7 +346,7 @@ namespace PharmacyApplication
                     result[i] = toParse[i];
                 }
 
-                else if (types[i].ToLower() ==typeof(float).FullName.ToLower())
+                else if (types[i].ToLower() == typeof(float).FullName.ToLower())
                 {
                     result[i] = float.Parse(toParse[i]);
                 }
@@ -351,6 +395,11 @@ namespace PharmacyApplication
             string stockTable = "stock";
             int endLine = FindEndLineNumber(workbook, stockTable) + 1 ;
             WriteRecordAlter(workbook, stockTable, endLine, addedStockType.Level.ToString(), addedStockType.ID.ToString(), addedStockType.Name);
+        }
+
+        public static void AddStockIntake(string workbook, string table, StockIntake toAdd)
+        {
+           Database.WriteRecord(workbook, table, toAdd.Elements);
         }
 
         public static int FindEndLineNumber(string workBook, string tableName)
