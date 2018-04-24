@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace PharmacyApplication
 {
     //Base Class for all Report Types
-    class ReportType
+     public class ReportType
     {
         //Author: Ronan
         //Reusing Database.cs Code. reports will need their own file as dicussed previously
@@ -50,32 +50,27 @@ namespace PharmacyApplication
         /// <param name="reportName">The table in the workbook to be created</param>
 
         /// <returns></returns>
-        public static bool CreateReport(string Workbook, string reportName, Type[] types, string[] labels)
+        public static bool SaveReport(string Workbook, string reportName)
         {
             bool result = false;
 
             string dir = ReportType.ROOTDRECTORY + "/" + Workbook;
             DateTime today = DateTime.Now;
-            //Check number of comlumns matches for types and labels
-            if (labels.Length == types.Length)
+            string dateString = today.ToShortDateString().Replace("/","");
+            string timeString = today.ToShortTimeString().Replace(":", "").Replace(" PM", "").Replace(" AM", "");
+            //Check Workbook exists
+            if (!Directory.Exists(dir))
             {
-
-                //Check Workbook exists
-                if (!Directory.Exists(dir))
-                {
-                    Directory.CreateDirectory(dir);
-                }
-
-                dir += "/" + reportName + today.ToLongDateString()  + Database.DEFAULTEXTENSION;
-
-                //Check table exists
-                if (!File.Exists(dir))
-                {
-                    File.Create(dir).Close();
-                }
-
+                Directory.CreateDirectory(dir);
             }
 
+            dir += "/" + reportName + "_" + dateString +"_" + timeString  + Database.DEFAULTEXTENSION;
+
+            //Check Report exists
+            if (!File.Exists(dir))
+            {
+                File.Create(dir).Close();
+            }
             else
             {
                 result = false;
@@ -84,7 +79,7 @@ namespace PharmacyApplication
             return result;
         }
 
-
+        
         
 
     }
