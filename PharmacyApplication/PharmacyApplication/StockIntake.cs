@@ -14,7 +14,7 @@ namespace PharmacyApplication
     {
         //For IDBReadable
         protected override Type[] FieldTypesToRead
-        {
+        { 
             get
             {
                 return new Type[3] { typeof(string), typeof(int), typeof(int) };
