@@ -9,7 +9,7 @@ namespace PharmacyApplication
     public class SalesRecord : DBReadable
     {
         // DateTime, Procduct id, Product Name, quantity
-        protected override Type[] FieldTypesToRead
+        public override Type[] FieldTypesToRead
         {
             get { return new Type[4] {typeof(DateTime), typeof(int), typeof(string), typeof(int)}; }
         }

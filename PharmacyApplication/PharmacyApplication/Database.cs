@@ -70,7 +70,11 @@ namespace PharmacyApplication
                     int i = 0;
                     while(i < types.Length)
                     {
+                        sW.Write("\"");//For string safety
+
                         sW.Write(types[i].FullName);
+
+                        sW.Write("\"");//For string safety
 
                         if (i < (types.Length - 1))
                         {
@@ -86,7 +90,11 @@ namespace PharmacyApplication
                     i = 0;
                     while (i < labels.Length)
                     {
+                        sW.Write("\"");//For string safety
+
                         sW.Write(labels[i]);
+
+                        sW.Write("\"");//For string safety
 
                         if (i < (labels.Length - 1))
                         {
@@ -145,8 +153,8 @@ namespace PharmacyApplication
         //appends a record to a table
         public static bool WriteRecord(string Workbook, string Table, string stock, string id, string name)
         {
-            StreamWriter writer = new StreamWriter(ROOTDRECTORY + "/" + Workbook + "/" + Table, true); //opens file in append mode
-            writer.WriteLine(stock + ", " + id + ", " + name);
+            StreamWriter writer = new StreamWriter(ROOTDRECTORY + "/" + Workbook + "/" + Table + Database.DEFAULTEXTENSION, true); //opens file in append mode
+            writer.WriteLine("\"" + stock + "\", \"" + id + "\", \"" + name + "\"");// \" for string safety
             writer.Close();
             return true;
         }
@@ -171,9 +179,13 @@ namespace PharmacyApplication
                 int i = 0;
                 while (i < toWrite.Length)
                 {
+                    writer.Write("\"");//For string safety
+
                     writer.Write(toWrite[i].ToString());
 
-                    if(i < (toWrite.Length - 1))
+                    writer.Write("\"");//For string safety
+
+                    if (i < (toWrite.Length - 1))
                     {
                         writer.Write(",");
                     }    
@@ -236,6 +248,54 @@ namespace PharmacyApplication
             return result;
         }
 
+        //Author: Jed
+        /// <summary>
+        /// Splits strings read from the DB into an array of strings delimited by , and removing "
+        /// </summary>
+        /// <param name="toSplit"></param>
+        /// <returns></returns>
+        public static string[] Split(string toSplit)
+        {
+            List<string> result = new List<string>();
+
+            char stringIndicator = '"';
+            char delimiter = ',';
+
+            bool insideString = false;
+            string temp = "";
+            int i = 0;
+            while (i < toSplit.Length)
+            {
+                if (toSplit[i] == stringIndicator)
+                {
+                    insideString = !insideString;//toggle
+                }
+
+                else
+                {
+                    if (insideString)
+                    {
+                        temp += toSplit[i];
+                    }
+
+                    else
+                    {
+                        if (toSplit[i] == delimiter)
+                        {
+                            result.Add(temp);
+                            temp = "";//reset
+                        }
+                    }
+                }
+
+                i += 1;
+            }
+
+            result.Add(temp);//flush last entry
+
+            return result.ToArray();
+        }
+
         //Authors: Jed, Jaques
         /// <summary>
         /// Reads a single row of values from a table and returns them as a generic object array.
@@ -255,11 +315,11 @@ namespace PharmacyApplication
 
             string[] dataTypes;
             string firstline = sR.ReadLine();
-            dataTypes = firstline.Split(',');
+            dataTypes = Database.Split(firstline);
 
             string[] labels;
             string secoundLine = sR.ReadLine();
-            labels = secoundLine.Split(',');
+            labels = Database.Split(secoundLine);
 
             string[] readData = null;
             
@@ -268,7 +328,7 @@ namespace PharmacyApplication
             {
                 if ((lineNumber - offset) == lineToRead)
                 {
-                    readData = readLine.Split(',');
+                    readData = Database.Split(readLine);
                     sR.Close();
 
                     //removed return to allow for typing of objects
@@ -298,8 +358,6 @@ namespace PharmacyApplication
                 result = new object[readData.Length];
 
                 result = Database.ParseReadTypes(dataTypes, readData);
-
-
             }
 
             return result;
@@ -385,6 +443,34 @@ namespace PharmacyApplication
             else
             {
                 result = new StockType(vals);
+            }
+
+            return result;
+        }
+
+        //Author: Jed
+        /// <summary>
+        /// Reads data from the specified table returning a StockIntake if one exists at the given index else returns null
+        /// </summary>
+        /// <param name="workbook"></param>
+        /// <param name="table"></param>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public static StockIntake ReadStockIntake(string workbook, string table, int indexToRead)
+        {
+            StockIntake result = null;
+
+            object[] vals = Database.Read(workbook, table, indexToRead);
+
+            if (vals == null)
+            {
+                //Assumed error code, just return null
+                result = null;
+            }
+
+            else
+            {
+                result = new StockIntake(vals);
             }
 
             return result;

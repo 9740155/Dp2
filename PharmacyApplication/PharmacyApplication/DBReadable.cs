@@ -15,7 +15,7 @@ namespace PharmacyApplication
 
         //Author: Jed
         //Defines the types to be read by from and array of objects
-        protected abstract Type[] FieldTypesToRead
+        public abstract Type[] FieldTypesToRead
         {
             get;
         }

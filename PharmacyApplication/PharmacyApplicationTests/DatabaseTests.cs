@@ -141,7 +141,6 @@ namespace PharmacyApplication.Tests
             Database.FindEndLineNumber(workbook, tableName);
             Assert.AreEqual(Database.FindEndLineNumber(workbook, tableName), 0);
             Assert.AreEqual(Database.FindEndLineNumber(workbook, "stock"), 3);
-
         }
 
         [TestMethod()]
@@ -152,7 +151,6 @@ namespace PharmacyApplication.Tests
             Assert.Fail(); // TODO need to test WriteLine first
 
         }
-
 
         [TestMethod()]
         public void WriteRecordTest()
