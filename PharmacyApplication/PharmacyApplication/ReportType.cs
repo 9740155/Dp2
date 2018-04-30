@@ -28,6 +28,8 @@ namespace PharmacyApplication
                 return ".csv";
             }
         }
+        //Ronan
+        //A placeholder for child classes to tmp store data.
         public DBReadable infoContainer
         {
             get
