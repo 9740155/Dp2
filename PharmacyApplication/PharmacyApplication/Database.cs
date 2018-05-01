@@ -366,5 +366,14 @@ namespace PharmacyApplication
             sR.Close();
             return lineNumber;
         }
+
+        public static bool UpdateStockLevel(string stockID, int stockLevel)
+        {
+            bool result = false;
+
+
+
+            return result;
+        }
     }
 }
