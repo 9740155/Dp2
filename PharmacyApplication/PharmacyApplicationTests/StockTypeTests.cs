@@ -21,9 +21,9 @@ namespace PharmacyApplicationTests
 
             StockType toTest = new StockType(id, name, level);
 
-            /*Assert.AreEqual(id, toTest.ID);
+            Assert.AreEqual(id, toTest.ID);
             Assert.AreEqual(name, toTest.Name);
-            Assert.AreEqual(level, toTest.Level);//*/
+            Assert.AreEqual(level, toTest.Level);
         }
 
         [TestMethod()]

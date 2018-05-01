@@ -13,7 +13,7 @@ namespace PharmacyApplication
     public class StockType : DBReadable
     {
         //For IDBReadable
-        protected override Type[] FieldTypesToRead
+        public override Type[] FieldTypesToRead
         {
             get
             {

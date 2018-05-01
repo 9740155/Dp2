@@ -15,7 +15,7 @@ namespace PharmacyApplication
 
         //Author: Jed
         //Defines the types to be read by from and array of objects
-        protected abstract Type[] FieldTypesToRead
+        public abstract Type[] FieldTypesToRead
         {
             get;
         }
@@ -32,6 +32,14 @@ namespace PharmacyApplication
                 _elements[i] = FieldTypesToRead[i].IsValueType ? Activator.CreateInstance(FieldTypesToRead[i]) : null;
 
                 i += 1;
+            }
+        }
+
+        public object[] Elements
+        {
+            get
+            {
+                return _elements;
             }
         }
 
