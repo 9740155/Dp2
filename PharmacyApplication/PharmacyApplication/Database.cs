@@ -217,7 +217,7 @@ namespace PharmacyApplication
 
             string line = null;
 
-            string dir = Database.ROOTDRECTORY + "/" + Workbook + "/" + Table;
+            string dir = Database.ROOTDRECTORY + "/" + Workbook + "/" + Table+Database.DEFAULTEXTENSION;
             StreamWriter sW = new StreamWriter(dir);
             StreamReader sR = new StreamReader(dir);
 
@@ -244,7 +244,8 @@ namespace PharmacyApplication
                 // ReadLine() and WriteLine()
                 lineNumber++;
             }
-
+            sW.Close();
+            sR.Close();
             return result;
         }
 

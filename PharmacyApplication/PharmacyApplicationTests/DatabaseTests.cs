@@ -148,7 +148,7 @@ namespace PharmacyApplication.Tests
         {
             StockType apples = new StockType(4, "apples", 23);
             Database.AddNewStockType(apples, workbook);
-            Assert.Fail(); // TODO need to test WriteLine first
+            Assert.AreEqual(Database.ReadStockType(workbook,"stock",1),apples); // TODO need to test WriteLine first
 
         }
 
