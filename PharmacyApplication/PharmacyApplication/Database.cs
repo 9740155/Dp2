@@ -450,6 +450,34 @@ namespace PharmacyApplication
 
         //Author: Jed
         /// <summary>
+        /// Reads data from the specified table returning a SalesRecord if one exists at the given index else returns null
+        /// </summary>
+        /// <param name="workbook"></param>
+        /// <param name="table"></param>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public static SalesRecord ReadSalesRecord(string workbook, string table, int indexToRead)
+        {
+            SalesRecord result = null;
+
+            object[] vals = Database.Read(workbook, table, indexToRead);
+
+            if (vals == null)
+            {
+                //Assumed error code, just return null
+                result = null;
+            }
+
+            else
+            {
+                result = new SalesRecord(vals);
+            }
+
+            return result;
+        }
+
+        //Author: Jed
+        /// <summary>
         /// Reads data from the specified table returning a StockIntake if one exists at the given index else returns null
         /// </summary>
         /// <param name="workbook"></param>
