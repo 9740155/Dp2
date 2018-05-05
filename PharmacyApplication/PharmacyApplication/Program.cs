@@ -18,14 +18,18 @@ namespace PharmacyApplication
 
             Database.CreateTable("Jed", "stock", testTypes, testLabels);//*/
 
-            Type[] testIntakeTypes = new Type[] {typeof(string), typeof(int), typeof(int)};
+            /*Type[] testIntakeTypes = new Type[] {typeof(string), typeof(int), typeof(int)};
             string[] testIntakeLabels = new string[] {"Date", "ID", "Amount"};
 
             Database.CreateTable("Jed", "intake", testIntakeTypes, testIntakeLabels);//*/
 
-            StockIntake st = new StockIntake("01-02-1998", 1, 5);
+            //StockIntake st = new StockIntake("01-02-1998", 1, 5);
 
-            Database.AddStockIntake("Jed", "intake", st);//*/
+            //Database.AddStockIntake("Jed", "intake", st);//*/
+
+            //Console.WriteLine((StockIntake.SearchFor("Jed", "intake", true, true, true, "01-02-1998", 1, 5))[0]);
+
+
 
             //StockType st = Database.ReadStockType("1997", "stock", 0);
 
