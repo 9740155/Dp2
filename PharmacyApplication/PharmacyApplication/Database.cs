@@ -502,11 +502,43 @@ namespace PharmacyApplication
             return lineNumber;
         }
 
-        public static bool UpdateStockLevel(string stockID, int stockLevel)
+        public static bool UpdateStockLevel(string stockID, int stockLevel, string WorkBook, string Table)
         {
             bool result = false;
+            string stock = "";
+            string name = "";
+            string[] tempArr;
+            string tempStr;
 
+            int lineToEdit = 0;
 
+            string dir = Database.ROOTDRECTORY + "/" + WorkBook + "/" + Table;
+            StreamReader sR = new StreamReader(dir);
+
+            while (result == false)
+            {
+                lineToEdit++;
+                tempStr = sR.ReadLine();
+                // Clears the white spaces from the string
+                tempStr = tempStr.Replace(" ", "");
+                // Splits the read line into sections where it finds a ','
+                tempArr = tempStr.Split(',');
+
+                // Removes the ',' from each string
+                for(int i = 0; i < 3; i++)
+                {
+                    tempArr[i] = tempArr[i].Replace(",", "");
+                }
+
+                if (tempArr[0] == stockID)
+                {
+                    result = true;
+                    name = tempArr[1];
+                    stock = stockLevel.ToString();
+                }
+            }
+
+            WriteRecordAlter(WorkBook, Table, lineToEdit, stock, stockID, name);
 
             return result;
         }
