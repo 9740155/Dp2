@@ -166,5 +166,11 @@ namespace PharmacyApplication.Tests
             // Should pass if there is a test data file that has less than 100 lines.
             Assert.IsFalse(Database.WriteRecordAlter("TestData", "TestFile", 100, "15", "32", "toothpaste"));
         }
+
+        [TestMethod()]
+        public void UpdateStockLevelTest()
+        {
+            Assert.IsTrue(Database.UpdateStockLevel("459", 500, "1997", "stock"));
+        }
     }
 }
