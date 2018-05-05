@@ -54,6 +54,7 @@
     <Compile Include="DatabaseTests.cs" />
     <Compile Include="DBReadableTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StockIntakeTests.cs" />
     <Compile Include="StockTypeTests.cs" />
   </ItemGroup>
   <ItemGroup>

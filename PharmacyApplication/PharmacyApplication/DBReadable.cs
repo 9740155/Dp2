@@ -35,24 +35,32 @@ namespace PharmacyApplication
             }
         }
 
+        public object[] Elements
+        {
+            get
+            {
+                return _elements;
+            }
+        }
+
         //Author: Jed        
         /// <summary>
         /// Reads a generic object array, vetts it to make sure the types of the generic object match the type expected atthat index
         /// </summary>
         /// <param name="elements">The aray of elements to be interpreted</param>
-        public void ReadFromGeneric(object[] elements)
+        public void ReadFromGeneric(object[] toRead)
         {
-            if ((elements != null) && (FieldTypesToRead != null))
+            if ((toRead != null) && (FieldTypesToRead != null))
             {
                 //Check the elements array is the same length as the number of expected elements
-                if (!(elements.Length == this.FieldTypesToRead.Length))
+                if (toRead.Length == this.FieldTypesToRead.Length)
                 {
                     bool error = false;
 
                     int i = 0;
-                    while(i < elements.Length)
+                    while(i < toRead.Length)
                     {
-                        if(elements[i].GetType() != FieldTypesToRead[i])
+                        if(toRead[i].GetType() != FieldTypesToRead[i])
                         {
                             error = true;
                             break;
@@ -63,16 +71,21 @@ namespace PharmacyApplication
 
                     if(!error)
                     {
-                        _elements = new object[elements.Length];
+                        _elements = new object[toRead.Length];
 
                         i = 0;
-                        while(i < elements.Length)
+                        while(i < toRead.Length)
                         {
-                            _elements[i] = elements[i];
+                            _elements[i] = toRead[i];
 
                             i += 1;
                         }
                     }
+                }
+
+                else
+                {
+                    throw new FormatException(String.Format("Mismatched lengths in DBReadable.ReadGeneric. Types provided: {0}, values provided {1}\n", FieldTypesToRead.Length, toRead.Length));
                 }
             }
 
@@ -80,7 +93,7 @@ namespace PharmacyApplication
             {
                 string msg = "";
 
-                if ((elements == null))
+                if ((toRead == null))
                 {
                     msg += "The Elements array was null during a call to Read Generic\n";
                 }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.ComponentModel;
 
 namespace PharmacyApplication
 {
@@ -39,7 +40,7 @@ namespace PharmacyApplication
         /// <param name="types">The types of data to be stored in each column</param>
         /// <param name="labels">The titles of each of the columns</param>
         /// <returns></returns>
-        public static bool CreateTable(string Workbook, string tableName, string[] types, string[] labels)
+        public static bool CreateTable(string Workbook, string tableName, Type[] types, string[] labels)
         {
             bool result = false;
 
@@ -69,11 +70,11 @@ namespace PharmacyApplication
                     int i = 0;
                     while(i < types.Length)
                     {
-                        sW.Write(types[i]);
+                        sW.Write(types[i].FullName);
 
                         if (i < (types.Length - 1))
                         {
-                            sW.Write(", ");
+                            sW.Write(",");//No characters aside from commas here, will break reads
                         }
 
                         i += 1;
@@ -89,7 +90,7 @@ namespace PharmacyApplication
 
                         if (i < (labels.Length - 1))
                         {
-                            sW.Write(", ");
+                            sW.Write(",");
                         }
 
                         i += 1;
@@ -148,10 +149,54 @@ namespace PharmacyApplication
             writer.WriteLine(stock + ", " + id + ", " + name);
             writer.Close();
             return true;
-
         }
 
-        //TODO this method needs to ask for a parameter "table" and access root/workbook/table.csv look at code for creating table
+        //Author: Jed
+        /// <summary>
+        /// Writes DBReadable objects into a table
+        /// </summary>
+        /// <param name="Workbook"></param>
+        /// <param name="Table"></param>
+        /// <param name="toWrite"></param>
+        /// <returns></returns>
+        public static bool WriteRecord(string workbook, string table, object[] toWrite)
+        {
+            string dir = Database.ROOTDRECTORY + "/" + workbook + "/" + table + Database.DEFAULTEXTENSION;
+            bool result = false;
+
+            if (File.Exists(dir))
+            {
+                StreamWriter writer = new StreamWriter(dir, true); //opens file in append mode
+
+                int i = 0;
+                while (i < toWrite.Length)
+                {
+                    writer.Write(toWrite[i].ToString());
+
+                    if(i < (toWrite.Length - 1))
+                    {
+                        writer.Write(",");
+                    }    
+
+                    i += 1;
+                }
+
+                writer.WriteLine();//End entry
+
+                writer.Close();
+
+                result = true;
+            }
+
+            else
+            {
+                result = false;
+                Console.WriteLine(dir + " dosn't exist");
+            }
+
+            return result;
+        }
+
         public static bool WriteRecordAlter(string Workbook, string Table, int lineToEdit, string stock, string id, string name)
         {
             bool result = false;
@@ -191,37 +236,130 @@ namespace PharmacyApplication
             return result;
         }
 
+        //Authors: Jed, Jaques
+        /// <summary>
+        /// Reads a single row of values from a table and returns them as a generic object array.
+        /// </summary>
+        /// <param name="workbook"></param>
+        /// <param name="tableName"></param>
+        /// <param name="lineToRead"></param>
+        /// <returns></returns>
         public static object[] Read(string workbook, string tableName, int lineToRead)
         {
+            const int offset = 2;//Number of lines to be skipped, lets 0 based index reads make sense
+
             Object[] result;
-            int lineNumber = 1;
+            int lineNumber = offset;//Current total index of lines read
             string dir = Database.ROOTDRECTORY + "/" + workbook + "/" + tableName + Database.DEFAULTEXTENSION; ;
             StreamReader sR = new StreamReader(dir);
 
             string[] dataTypes;
             string firstline = sR.ReadLine();
             dataTypes = firstline.Split(',');
+
             string[] labels;
             string secoundLine = sR.ReadLine();
             labels = secoundLine.Split(',');
+
+            string[] readData = null;
             
             string readLine = null;
             while ((readLine = sR.ReadLine()) != null)
             {
-                if (lineNumber == lineToRead)
+                if ((lineNumber - offset) == lineToRead)
                 {
-                    result = readLine.Split(',');
+                    readData = readLine.Split(',');
                     sR.Close();
-                    return result;
+
+                    //removed return to allow for typing of objects
+                    break;
                 }
                 lineNumber++;
             }
-            Console.WriteLine("Error line not found");
-            Debug.WriteLine("Error line not found");
-            sR.Close();
 
-            //Throw exception to mark EOF, instead of return null
-            throw new EndOfStreamException();
+            //Line not found
+            if (readData == null)
+            {
+                Console.WriteLine("Error line not found");
+                Debug.WriteLine("Error line not found");
+                sR.Close();
+
+                //Throw exception to mark EOF, instead of return null
+                throw new EndOfStreamException();
+            }
+
+            else
+            {
+                if(dataTypes.Length != readData.Length)
+                {
+                    throw new FormatException(String.Format("Data and data types mismatch, Data found: {0}, Data types found {1}", readData.Length, dataTypes.Length));
+                }
+
+                result = new object[readData.Length];
+
+                result = Database.ParseReadTypes(dataTypes, readData);
+
+
+            }
+
+            return result;
+        }
+
+        //Author: Jed
+        /// <summary>
+        /// Parse the strings in toParse and casts them as the types represented by types.
+        /// </summary>
+        /// <param name="types"></param>
+        /// <param name="toParse"></param>
+        /// <returns></returns>
+        public static object[] ParseReadTypes(string[] types, string[] toParse)
+        {
+            if (types.Length != toParse.Length)
+            {
+                throw new FormatException(String.Format("Mismatch in number of colums, {0} types given and {1} strings to parse.\n", types.Length, toParse.Length));
+            }
+
+            object[] result = new object[toParse.Length];
+
+            int i = 0;
+            while(i < toParse.Length)
+            {
+                //Check if the types full name matches the following expected types
+                if (types[i].ToLower() == typeof(int).FullName.ToLower())
+                {
+                    result[i] = Int32.Parse(toParse[i]);
+                }
+
+                else if (types[i].ToLower() == typeof(long).FullName.ToLower())
+                {
+                    result[i] = Int64.Parse(toParse[i]);
+                }
+
+                else if (types[i].ToLower() == typeof(short).FullName.ToLower())
+                {
+                    result[i] = Int16.Parse(toParse[i]);
+                }
+
+                else if (types[i].ToLower() == typeof(string).FullName.ToLower())
+                {
+                    //Strings don't parse
+                    result[i] = toParse[i];
+                }
+
+                else if (types[i].ToLower() == typeof(float).FullName.ToLower())
+                {
+                    result[i] = float.Parse(toParse[i]);
+                }
+
+                else
+                {
+                    throw new InvalidCastException(String.Format("No suitable type was found for coverting {0} to {1}, consider extending Database.ParseReadTypes.\n", toParse[i], types[i]));
+                }
+
+                i += 1;
+            }
+
+            return result;
         }
 
         //Author: Jed
@@ -252,11 +390,16 @@ namespace PharmacyApplication
             return result;
         }
 
-        public static void AddNewStockType(StockType addedStockType,string workbook)
+        public static void AddNewStockType(StockType addedStockType, string workbook)
         {
-            string StockTable = "stock";
-            int endLine = FindEndLineNumber(workbook, StockTable) + 1 ;
-            WriteRecordAlter(workbook, endLine, addedStockType.Level.ToString(), addedStockType.ID.ToString(), addedStockType.Name);
+            string stockTable = "stock";
+            int endLine = FindEndLineNumber(workbook, stockTable) + 1 ;
+            WriteRecordAlter(workbook, stockTable, endLine, addedStockType.Level.ToString(), addedStockType.ID.ToString(), addedStockType.Name);
+        }
+
+        public static void AddStockIntake(string workbook, string table, StockIntake toAdd)
+        {
+           Database.WriteRecord(workbook, table, toAdd.Elements);
         }
 
         public static int FindEndLineNumber(string workBook, string tableName)

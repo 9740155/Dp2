@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,16 +13,24 @@ namespace PharmacyApplication
     {
         static void Main(string[] args)
         {
-            /*string[] testTypes = new string[] {"float", "int", "string"};
-            string[] testLabels = new string[] {"stock", "id", "name"};
+            /*Type[] testTypes = new Type[] {typeof(int), typeof(string), typeof(int)};
+            string[] testLabels = new string[] {"ID", "Name", "Level"};
 
-            Database.CreateTable("A", "intake", testTypes, testLabels);//*/
+            Database.CreateTable("Jed", "stock", testTypes, testLabels);//*/
 
-            Form f = new Form();
+            Type[] testIntakeTypes = new Type[] {typeof(string), typeof(int), typeof(int)};
+            string[] testIntakeLabels = new string[] {"Date", "ID", "Amount"};
+
+            Database.CreateTable("Jed", "intake", testIntakeTypes, testIntakeLabels);//*/
+
+            StockIntake st = new StockIntake("01-02-1998", 1, 5);
+
+            Database.AddStockIntake("Jed", "intake", st);//*/
 
             //StockType st = Database.ReadStockType("1997", "stock", 0);
 
-            StockTypeDisplay std = new StockTypeDisplay("1997", "stock", 0);
+            //StockTypeDisplay std = new StockTypeDisplay("1997", "stock", 0);
+            DisplaySalesRecord std = new DisplaySalesRecord("1997", "stock", 0);
 
             std.ShowDialog();
         }
