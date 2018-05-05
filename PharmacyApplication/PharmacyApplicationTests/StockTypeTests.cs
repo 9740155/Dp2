@@ -89,5 +89,21 @@ namespace PharmacyApplicationTests
             Assert.AreEqual(name, toTest.Name);
             Assert.AreNotEqual(level, toTest.Level);
         }
+
+        [TestMethod()]
+        public void StockTypeAlertPass()
+        {
+            StockType toTest = new StockType(50, "chocolate", 4, 10);
+            Assert.IsTrue(toTest.isLow());
+            toTest.Level = 10;
+            Assert.IsTrue(toTest.isLow());
+        }
+
+        [TestMethod()]
+        public void StockTypeAlertFail()
+        {
+            StockType toTest = new StockType(50, "chocolate", 20, 10);
+            Assert.IsFalse(toTest.isLow());
+        }
     }
 }
