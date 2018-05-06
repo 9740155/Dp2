@@ -17,7 +17,7 @@ namespace PharmacyApplication
         {
             get
             {
-                return new Type[3] { typeof(int), typeof(string), typeof(int) };
+                return new Type[4] { typeof(int), typeof(string), typeof(int), typeof(int) };
             }
         }
 
@@ -72,12 +72,47 @@ namespace PharmacyApplication
             }
         }
 
+        /// <summary>
+        /// Level of stock where an alert should be raised to the user that stock is low
+        /// </summary>
+        public int Alert
+        {
+            get
+            {
+                return (int)_elements[3];
+            }
+
+            set
+            {
+                _elements[3] = value;
+            }
+        }
+
+
 
         public StockType(int id, string name, int level) : base()
         {
             this.ID = id;
             this.Name = name;
             this.Level = level;
+            this.Alert = 0;
+        }
+
+        public StockType(int id, string name, int level, int alert) : base()
+        {
+            this.ID = id;
+            this.Name = name;
+            this.Level = level;
+            this.Alert = alert;
+        }
+
+        /// <summary>
+        /// Returns true if number of stock is lower than alert amount.
+        /// </summary>
+        /// <returns></returns>
+        public bool isLow()
+        {
+            return Level <= Alert;
         }
 
         public StockType(object[] objs):base()
