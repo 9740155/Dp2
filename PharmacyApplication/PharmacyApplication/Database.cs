@@ -409,6 +409,11 @@ namespace PharmacyApplication
                     result[i] = float.Parse(toParse[i]);
                 }
 
+                else if (types[i].ToLower() == typeof(DateTime).FullName.ToLower())
+                {
+                    result[i] = DateTime.Parse(toParse[i]);
+                }
+
                 else
                 {
                     throw new InvalidCastException(String.Format("No suitable type was found for coverting {0} to {1}, consider extending Database.ParseReadTypes.\n", toParse[i], types[i]));

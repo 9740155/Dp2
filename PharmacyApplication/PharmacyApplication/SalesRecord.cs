@@ -61,7 +61,7 @@ namespace PharmacyApplication
         /// <returns></returns>
         public static int[] SearchFor(string workbook, string table, bool matchDate, bool matchID, bool matchName, bool matchQuantity, DateTime date, int ID, string name, int quantity)
         {
-            List<int> result = new List<int>();
+            List<int> result = new List<int>();            
 
             int length = Database.FindEndLineNumber(workbook, table);
 
