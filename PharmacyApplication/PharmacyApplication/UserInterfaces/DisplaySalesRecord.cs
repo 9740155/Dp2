@@ -29,7 +29,7 @@ namespace PharmacyApplication.UserInterfaces
 
         public void UpdateOutputs()
         {
-            StockType toDisplay = Database.ReadStockType(_workbook, _table, _indexOfStockType);
+            SalesRecord toDisplay = Database.ReadSalesRecord(_workbook, _table, _indexOfStockType);
 
             if (toDisplay == null)
             {
@@ -39,8 +39,9 @@ namespace PharmacyApplication.UserInterfaces
 
             lbl_id_output.Text = toDisplay.ID.ToString();
             lbl_name_output.Text = toDisplay.Name;
-            lbl_stock_output.Text = toDisplay.Level.ToString();
+            lbl_stock_output.Text = toDisplay.Quantity.ToString();
             lbl_index.Text = (_indexOfStockType + 1).ToString();
+            label1.Text = toDisplay.DateOfSale.ToString();
         }
 
         private void btn_increase_Click(object sender, EventArgs e)
@@ -94,6 +95,16 @@ namespace PharmacyApplication.UserInterfaces
             }
 
             return result;
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
