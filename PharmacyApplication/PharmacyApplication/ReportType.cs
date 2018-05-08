@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace PharmacyApplication
 {
     //Base Class for all Report Types
-     public class ReportType
+     public abstract class ReportType
     {
         //Author: Ronan
         //Reusing Database.cs Code. reports will need their own file as dicussed previously
@@ -20,7 +20,7 @@ namespace PharmacyApplication
                 return "./Root";
             }
         }
-
+        public static string _fullReportName;
         public static string DEFAULTEXTENSION
         {
             get
@@ -52,7 +52,7 @@ namespace PharmacyApplication
         /// <param name="reportName">The table in the workbook to be created</param>
 
         /// <returns></returns>
-        public static bool SaveReport(string Workbook, string reportName)
+        public virtual bool SaveReport(string Workbook, string reportName, DateTime from, DateTime to, string workbooktable, string table, int idToSearch)
         {
             bool result = false;
 
@@ -66,12 +66,12 @@ namespace PharmacyApplication
                 Directory.CreateDirectory(dir);
             }
 
-            dir += "/" + reportName + "_" + dateString +"_" + timeString  + Database.DEFAULTEXTENSION;
+            _fullReportName += "/" + reportName + "_" + dateString +"_" + timeString  + Database.DEFAULTEXTENSION;
 
             //Check Report exists
-            if (!File.Exists(dir))
+            if (!File.Exists(_fullReportName))
             {
-                File.Create(dir).Close();
+                File.Create(_fullReportName).Close();
             }
             else
             {
@@ -81,8 +81,48 @@ namespace PharmacyApplication
             return result;
         }
 
-        
-        
+        public static bool WriteRecord(string[] toWrite)
+        {
+            
+            bool result = false;
+
+            if (File.Exists(_fullReportName))
+            {
+                StreamWriter writer = new StreamWriter(_fullReportName, true); //opens file in append mode
+
+                int i = 0;
+                while (i < toWrite.Length)
+                {
+                    writer.Write("\"");//For string safety
+
+                    writer.Write(toWrite[i].ToString());
+
+                    writer.Write("\"");//For string safety
+
+                    if (i < (toWrite.Length - 1))
+                    {
+                        writer.Write(",");
+                    }
+
+                    i += 1;
+                }
+
+                writer.WriteLine();//End entry
+
+                writer.Close();
+
+                result = true;
+            }
+
+            else
+            {
+                result = false;
+                Console.WriteLine(_fullReportName + " dosn't exist");
+            }
+
+            return result;
+        }
+
 
     }
 }
