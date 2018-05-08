@@ -218,11 +218,12 @@ namespace PharmacyApplication
             string line = null;
 
             string dir = Database.ROOTDRECTORY + "/" + Workbook + "/" + Table;
-            StreamWriter sW = new StreamWriter(dir);
+            
             StreamReader sR = new StreamReader(dir);
 
             // Initialises line to the current line being read
-            while ((line = sR.ReadLine()) != null)
+
+            while (line != null)
             {
                 // Tests if the current line is the same as the
                 // passed in lineToEdit variable
@@ -230,21 +231,29 @@ namespace PharmacyApplication
                 {
                     // If the line numbers match then overwrite the line
                     // with the passed in variables
+                    StreamWriter sW = new StreamWriter(dir);
                     sW.WriteLine(stock + ", " + id + ", " + name);
                     result = true;
+                    sW.Close();
                 }
                 else
                 {
                     // If the lines dont match then rewrite the
                     // line with the same data to keep the 
                     // ReadLine() and WriteLine() in sync
+                    StreamWriter sW = new StreamWriter(dir);
                     sW.WriteLine(line);
+                    sW.Close();
                 }
                 // Increment the lineNumber to keep in sync with
                 // ReadLine() and WriteLine()
                 lineNumber++;
+
+                StreamReader sR = new StreamReader(dir);
+                line = sR.ReadLine();
             }
 
+            sR.Close();
             return result;
         }
 
