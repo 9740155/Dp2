@@ -38,10 +38,12 @@ namespace PharmacyApplication
 
             std.ShowDialog();//*/
 
-            Console.WriteLine(Predictor.PredictLinear("Tests", "sales", new DateTime(2018, 05, 01), new DateTime(2018, 05, 27), 1).ExpectedValue);
+            //Console.WriteLine(Predictor.PredictLinear("Tests", "sales", new DateTime(2018, 05, 01), new DateTime(2018, 05, 27), 1).ExpectedValue);
 
 
-            Console.ReadKey();
+            //Console.ReadKey();
+
+            (new HomePage()).ShowDialog();
         }
     }
 }

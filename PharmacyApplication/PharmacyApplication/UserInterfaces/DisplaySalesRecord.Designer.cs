@@ -37,6 +37,8 @@
             this.btn_increase = new System.Windows.Forms.Button();
             this.btn_decrease = new System.Windows.Forms.Button();
             this.lbl_index = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbl_stock
@@ -44,9 +46,9 @@
             this.lbl_stock.AutoSize = true;
             this.lbl_stock.Location = new System.Drawing.Point(49, 42);
             this.lbl_stock.Name = "lbl_stock";
-            this.lbl_stock.Size = new System.Drawing.Size(67, 13);
+            this.lbl_stock.Size = new System.Drawing.Size(49, 13);
             this.lbl_stock.TabIndex = 0;
-            this.lbl_stock.Text = "Stock Level:";
+            this.lbl_stock.Text = "Quantity:";
             // 
             // lbl_id
             // 
@@ -95,7 +97,7 @@
             // 
             // btn_increase
             // 
-            this.btn_increase.Location = new System.Drawing.Point(154, 158);
+            this.btn_increase.Location = new System.Drawing.Point(162, 188);
             this.btn_increase.Name = "btn_increase";
             this.btn_increase.Size = new System.Drawing.Size(28, 23);
             this.btn_increase.TabIndex = 6;
@@ -105,7 +107,7 @@
             // 
             // btn_decrease
             // 
-            this.btn_decrease.Location = new System.Drawing.Point(34, 158);
+            this.btn_decrease.Location = new System.Drawing.Point(42, 188);
             this.btn_decrease.Name = "btn_decrease";
             this.btn_decrease.Size = new System.Drawing.Size(28, 23);
             this.btn_decrease.TabIndex = 7;
@@ -116,17 +118,39 @@
             // lbl_index
             // 
             this.lbl_index.AutoSize = true;
-            this.lbl_index.Location = new System.Drawing.Point(91, 163);
+            this.lbl_index.Location = new System.Drawing.Point(99, 193);
             this.lbl_index.Name = "lbl_index";
             this.lbl_index.Size = new System.Drawing.Size(25, 13);
             this.lbl_index.TabIndex = 8;
             this.lbl_index.Text = "Null";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(136, 151);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(25, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Null";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(49, 151);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(33, 13);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Date:";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
             // DisplaySalesRecord
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(218, 194);
+            this.ClientSize = new System.Drawing.Size(236, 243);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.lbl_index);
             this.Controls.Add(this.btn_decrease);
             this.Controls.Add(this.btn_increase);
@@ -154,5 +178,7 @@
         private System.Windows.Forms.Button btn_increase;
         private System.Windows.Forms.Button btn_decrease;
         private System.Windows.Forms.Label lbl_index;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }

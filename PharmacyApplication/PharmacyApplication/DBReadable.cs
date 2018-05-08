@@ -85,6 +85,11 @@ namespace PharmacyApplication
 
                 else
                 {
+
+                    foreach (object s in toRead)
+                    {
+                        Console.WriteLine(toRead);
+                    }
                     throw new FormatException(String.Format("Mismatched lengths in DBReadable.ReadGeneric. Types provided: {0}, values provided {1}\n", FieldTypesToRead.Length, toRead.Length));
                 }
             }
