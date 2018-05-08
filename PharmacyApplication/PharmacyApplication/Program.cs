@@ -38,10 +38,17 @@ namespace PharmacyApplication
 
             std.ShowDialog();//*/
 
-            Console.WriteLine(Predictor.PredictLinear("Tests", "sales", new DateTime(2018, 05, 01), new DateTime(2018, 05, 27), 1).ExpectedValue);
+            // Console.WriteLine(Predictor.PredictLinear("Tests", "sales", new DateTime(2018, 05, 01), new DateTime(2018, 05, 27), 1).ExpectedValue);
+
+            PredictionReport localPredict = new PredictionReport();
+            DateTime from = new DateTime(2018, 05, 02);
+            DateTime to = new DateTime(2018, 05, 22);
+            localPredict.SaveReport("SalesPrediction","Prediction1", from, to, "TableWorkbook", "TableName", 5);
 
 
-            Console.ReadKey();
+          //  Console.ReadKey();
+
+
         }
     }
 }
