@@ -249,6 +249,51 @@ namespace PharmacyApplication
             return result;
         }
 
+        public static bool WriteRecordAlter(string Workbook, string Table, int lineToEdit, string[] data)
+        {
+            bool result = false;
+
+            int lineNumber = 2;
+
+            string line = null;
+
+            string dir = Database.ROOTDRECTORY + "/" + Workbook + "/" + Table + Database.DEFAULTEXTENSION;
+            StreamWriter sW = new StreamWriter(dir);
+            StreamReader sR = new StreamReader(dir);
+
+            // Initialises line to the current line being read
+            while ((line = sR.ReadLine()) != null)
+            {
+                // Tests if the current line is the same as the
+                // passed in lineToEdit variable
+                if (lineNumber == lineToEdit)
+                {
+                    // If the line numbers match then overwrite the line
+                    // with the passed in variables
+                    string lineToWrite = "";
+                    foreach (string datastring in data)
+                    {
+                        lineToWrite += datastring + ",";
+                    }
+                    sW.WriteLine(lineToWrite);
+                    result = true;
+                }
+                else
+                {
+                    // If the lines dont match then rewrite the
+                    // line with the same data to keep the 
+                    // ReadLine() and WriteLine() in sync
+                    sW.WriteLine(line);
+                }
+                // Increment the lineNumber to keep in sync with
+                // ReadLine() and WriteLine()
+                lineNumber++;
+            }
+            sW.Close();
+            sR.Close();
+            return result;
+        }
+
         //Author: Jed
         /// <summary>
         /// Splits strings read from the DB into an array of strings delimited by , and removing "
@@ -258,7 +303,6 @@ namespace PharmacyApplication
         public static string[] Split(string toSplit)
         {
             List<string> result = new List<string>();
-
             char stringIndicator = '"';
             char delimiter = ',';
 
@@ -575,6 +619,39 @@ namespace PharmacyApplication
             WriteRecordAlter(WorkBook, Table, lineToEdit, stock, stockID, name);
 
             return result;
+        }
+
+        public static int FindLineByID(string workBook, string tableName, int ID)
+        {
+            string readLine = null;
+            string dir = Database.ROOTDRECTORY + "/" + workBook + "/" + tableName + Database.DEFAULTEXTENSION;
+            StreamReader sR = new StreamReader(dir);
+            int lineNumber = -2;
+            string[] readData = null;
+            while ((readLine = sR.ReadLine()) != null)
+            {
+                readData = Split(readLine);
+                if (Int32.Parse(readData[0]) == ID)
+                {
+                    break;
+                }
+                lineNumber++;
+            }
+            sR.Close();
+            return lineNumber;
+        }
+
+        public static void EditStockAlert(string WorkBook , int stockID, int newAlert)
+        {
+            int lineToEdit = FindLineByID(WorkBook,"stock",stockID);
+            string[] data = (string[])Read(WorkBook, "stock", lineToEdit);
+            data[4] = newAlert.ToString();
+            WriteRecordAlter(WorkBook,"stock", lineToEdit,data);
+        }
+
+        public static void DeleteStockAlert(string WorkBook, int stockID)
+        {
+            EditStockAlert(WorkBook, stockID, 0);
         }
     }
 }
