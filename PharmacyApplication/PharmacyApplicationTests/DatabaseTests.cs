@@ -170,7 +170,7 @@ namespace PharmacyApplication.Tests
         [TestMethod()]
         public void UpdateStockLevelTest()
         {
-            Assert.IsTrue(Database.UpdateStockLevel("459", 500, "1997", "stock"));
+            Assert.IsTrue(Database.UpdateStockLevel("34", 500, "Tests", "Test Stock Levels.csv"));
         }
     }
 }
