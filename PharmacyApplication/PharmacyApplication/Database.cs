@@ -507,36 +507,43 @@ namespace PharmacyApplication
             bool result = false;
             string stock = "";
             string name = "";
-            string[] tempArr;
-            string tempStr;
+            string tempStr = "blank";
 
             int lineToEdit = 0;
 
             string dir = Database.ROOTDRECTORY + "/" + WorkBook + "/" + Table;
             StreamReader sR = new StreamReader(dir);
 
-            while (result == false)
+            tempStr = sR.ReadLine();
+
+            while ((tempStr = sR.ReadLine()) != null)
             {
                 lineToEdit++;
-                tempStr = sR.ReadLine();
+
                 // Clears the white spaces from the string
                 tempStr = tempStr.Replace(" ", "");
+                char[] splitChar = new char[] { ',' };
                 // Splits the read line into sections where it finds a ','
-                tempArr = tempStr.Split(',');
+                string[] tempArr = tempStr.Split(splitChar);
 
                 // Removes the ',' from each string
-                for(int i = 0; i < 3; i++)
+                for(int i = 0; i < tempArr.Length - 1; i++)
                 {
                     tempArr[i] = tempArr[i].Replace(",", "");
+                    tempArr[i] = tempArr[i].Replace("\"", "");
                 }
-
-                if (tempArr[0] == stockID)
+                if (tempArr.Length > 2)
                 {
-                    result = true;
-                    name = tempArr[1];
-                    stock = stockLevel.ToString();
+                    if (tempArr[1] == stockID)
+                    {
+                        result = true;
+                        name = tempArr[1];
+                        stock = stockLevel.ToString();
+                    }
                 }
             }
+
+            sR.Close();
 
             WriteRecordAlter(WorkBook, Table, lineToEdit, stock, stockID, name);
 
