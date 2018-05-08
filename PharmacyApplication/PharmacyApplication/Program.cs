@@ -34,9 +34,14 @@ namespace PharmacyApplication
             //StockType st = Database.ReadStockType("1997", "stock", 0);
 
             //StockTypeDisplay std = new StockTypeDisplay("1997", "stock", 0);
-            DisplaySalesRecord std = new DisplaySalesRecord("1997", "stock", 0);
+            /*DisplaySalesRecord std = new DisplaySalesRecord("1997", "stock", 0);
 
-            std.ShowDialog();
+            std.ShowDialog();//*/
+
+            Console.WriteLine(Predictor.PredictLinear("Tests", "sales", new DateTime(2018, 05, 01), new DateTime(2018, 05, 27), 1).ExpectedValue);
+
+
+            Console.ReadKey();
         }
     }
 }

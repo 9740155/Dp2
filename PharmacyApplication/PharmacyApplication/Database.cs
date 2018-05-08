@@ -217,13 +217,12 @@ namespace PharmacyApplication
 
             string line = null;
 
-            string dir = Database.ROOTDRECTORY + "/" + Workbook + "/" + Table;
-            
+            string dir = Database.ROOTDRECTORY + "/" + Workbook + "/" + Table+Database.DEFAULTEXTENSION;
+            StreamWriter sW = new StreamWriter(dir);
             StreamReader sR = new StreamReader(dir);
 
             // Initialises line to the current line being read
-
-            while (line != null)
+            while ((line = sR.ReadLine()) != null)
             {
                 // Tests if the current line is the same as the
                 // passed in lineToEdit variable
@@ -231,28 +230,66 @@ namespace PharmacyApplication
                 {
                     // If the line numbers match then overwrite the line
                     // with the passed in variables
-                    StreamWriter sW = new StreamWriter(dir);
                     sW.WriteLine(stock + ", " + id + ", " + name);
                     result = true;
-                    sW.Close();
                 }
                 else
                 {
                     // If the lines dont match then rewrite the
                     // line with the same data to keep the 
                     // ReadLine() and WriteLine() in sync
-                    StreamWriter sW = new StreamWriter(dir);
                     sW.WriteLine(line);
-                    sW.Close();
                 }
                 // Increment the lineNumber to keep in sync with
                 // ReadLine() and WriteLine()
                 lineNumber++;
-
-                StreamReader sR = new StreamReader(dir);
-                line = sR.ReadLine();
             }
+            sW.Close();
+            sR.Close();
+            return result;
+        }
 
+        public static bool WriteRecordAlter(string Workbook, string Table, int lineToEdit, string[] data)
+        {
+            bool result = false;
+
+            int lineNumber = 2;
+
+            string line = null;
+
+            string dir = Database.ROOTDRECTORY + "/" + Workbook + "/" + Table + Database.DEFAULTEXTENSION;
+            StreamWriter sW = new StreamWriter(dir);
+            StreamReader sR = new StreamReader(dir);
+
+            // Initialises line to the current line being read
+            while ((line = sR.ReadLine()) != null)
+            {
+                // Tests if the current line is the same as the
+                // passed in lineToEdit variable
+                if (lineNumber == lineToEdit)
+                {
+                    // If the line numbers match then overwrite the line
+                    // with the passed in variables
+                    string lineToWrite = "";
+                    foreach (string datastring in data)
+                    {
+                        lineToWrite += datastring + ",";
+                    }
+                    sW.WriteLine(lineToWrite);
+                    result = true;
+                }
+                else
+                {
+                    // If the lines dont match then rewrite the
+                    // line with the same data to keep the 
+                    // ReadLine() and WriteLine() in sync
+                    sW.WriteLine(line);
+                }
+                // Increment the lineNumber to keep in sync with
+                // ReadLine() and WriteLine()
+                lineNumber++;
+            }
+            sW.Close();
             sR.Close();
             return result;
         }
@@ -266,7 +303,6 @@ namespace PharmacyApplication
         public static string[] Split(string toSplit)
         {
             List<string> result = new List<string>();
-
             char stringIndicator = '"';
             char delimiter = ',';
 
@@ -418,6 +454,11 @@ namespace PharmacyApplication
                     result[i] = float.Parse(toParse[i]);
                 }
 
+                else if (types[i].ToLower() == typeof(DateTime).FullName.ToLower())
+                {
+                    result[i] = DateTime.Parse(toParse[i]);
+                }
+
                 else
                 {
                     throw new InvalidCastException(String.Format("No suitable type was found for coverting {0} to {1}, consider extending Database.ParseReadTypes.\n", toParse[i], types[i]));
@@ -452,6 +493,34 @@ namespace PharmacyApplication
             else
             {
                 result = new StockType(vals);
+            }
+
+            return result;
+        }
+
+        //Author: Jed
+        /// <summary>
+        /// Reads data from the specified table returning a SalesRecord if one exists at the given index else returns null
+        /// </summary>
+        /// <param name="workbook"></param>
+        /// <param name="table"></param>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public static SalesRecord ReadSalesRecord(string workbook, string table, int indexToRead)
+        {
+            SalesRecord result = null;
+
+            object[] vals = Database.Read(workbook, table, indexToRead);
+
+            if (vals == null)
+            {
+                //Assumed error code, just return null
+                result = null;
+            }
+
+            else
+            {
+                result = new SalesRecord(vals);
             }
 
             return result;
@@ -516,47 +585,73 @@ namespace PharmacyApplication
             bool result = false;
             string stock = "";
             string name = "";
-            string tempStr = "blank";
+            string[] tempArr;
+            string tempStr;
 
             int lineToEdit = 0;
 
             string dir = Database.ROOTDRECTORY + "/" + WorkBook + "/" + Table;
             StreamReader sR = new StreamReader(dir);
 
-            tempStr = sR.ReadLine();
-
-            while ((tempStr = sR.ReadLine()) != null)
+            while (result == false)
             {
                 lineToEdit++;
-
+                tempStr = sR.ReadLine();
                 // Clears the white spaces from the string
                 tempStr = tempStr.Replace(" ", "");
-                char[] splitChar = new char[] { ',' };
                 // Splits the read line into sections where it finds a ','
-                string[] tempArr = tempStr.Split(splitChar);
+                tempArr = tempStr.Split(',');
 
                 // Removes the ',' from each string
-                for(int i = 0; i < tempArr.Length - 1; i++)
+                for(int i = 0; i < 3; i++)
                 {
                     tempArr[i] = tempArr[i].Replace(",", "");
-                    tempArr[i] = tempArr[i].Replace("\"", "");
                 }
-                if (tempArr.Length > 2)
+
+                if (tempArr[0] == stockID)
                 {
-                    if (tempArr[1] == stockID)
-                    {
-                        result = true;
-                        name = tempArr[1];
-                        stock = stockLevel.ToString();
-                    }
+                    result = true;
+                    name = tempArr[1];
+                    stock = stockLevel.ToString();
                 }
             }
-
-            sR.Close();
 
             WriteRecordAlter(WorkBook, Table, lineToEdit, stock, stockID, name);
 
             return result;
+        }
+
+        public static int FindLineByID(string workBook, string tableName, int ID)
+        {
+            string readLine = null;
+            string dir = Database.ROOTDRECTORY + "/" + workBook + "/" + tableName + Database.DEFAULTEXTENSION;
+            StreamReader sR = new StreamReader(dir);
+            int lineNumber = -2;
+            string[] readData = null;
+            while ((readLine = sR.ReadLine()) != null)
+            {
+                readData = Split(readLine);
+                if (Int32.Parse(readData[0]) == ID)
+                {
+                    break;
+                }
+                lineNumber++;
+            }
+            sR.Close();
+            return lineNumber;
+        }
+
+        public static void EditStockAlert(string WorkBook , int stockID, int newAlert)
+        {
+            int lineToEdit = FindLineByID(WorkBook,"stock",stockID);
+            string[] data = (string[])Read(WorkBook, "stock", lineToEdit);
+            data[4] = newAlert.ToString();
+            WriteRecordAlter(WorkBook,"stock", lineToEdit,data);
+        }
+
+        public static void DeleteStockAlert(string WorkBook, int stockID)
+        {
+            EditStockAlert(WorkBook, stockID, 0);
         }
     }
 }
