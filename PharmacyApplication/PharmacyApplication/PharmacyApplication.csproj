@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StockReport.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="DBReadable.cs" />
     <Compile Include="PAReadException.cs" />
