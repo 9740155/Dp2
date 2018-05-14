@@ -101,7 +101,7 @@ namespace PharmacyApplication
 
                     if (i < (toWrite.Length - 1))
                     {
-                        writer.Write(",");
+                        writer.WriteLine("");
                     }
 
                     i += 1;
