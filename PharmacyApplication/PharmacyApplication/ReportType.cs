@@ -60,13 +60,14 @@ namespace PharmacyApplication
             DateTime today = DateTime.Now;
             string dateString = today.ToShortDateString().Replace("/","");
             string timeString = today.ToShortTimeString().Replace(":", "").Replace(" PM", "").Replace(" AM", "");
+            
             //Check Workbook exists
             if (!Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir);
             }
 
-            _fullReportName += "/" + reportName + "_" + dateString +"_" + timeString  + Database.DEFAULTEXTENSION;
+           _fullReportName = dir + "/" + reportName + "_" + dateString +"_" + timeString  + Database.DEFAULTEXTENSION;
 
             //Check Report exists
             if (!File.Exists(_fullReportName))
@@ -101,7 +102,7 @@ namespace PharmacyApplication
 
                     if (i < (toWrite.Length - 1))
                     {
-                        writer.Write(",");
+                        writer.WriteLine();
                     }
 
                     i += 1;

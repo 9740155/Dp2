@@ -49,9 +49,11 @@
     <Compile Include="DBReadable.cs" />
     <Compile Include="PAReadException.cs" />
     <Compile Include="Prediction.cs" />
+    <Compile Include="PredictionReport.cs" />
     <Compile Include="Predictor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportType.cs" />
     <Compile Include="SalesRecord.cs" />
     <Compile Include="StockIntake.cs" />
     <Compile Include="StockType.cs" />
