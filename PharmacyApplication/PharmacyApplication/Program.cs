@@ -38,7 +38,9 @@ namespace PharmacyApplication
 
             std.ShowDialog();//*/
 
-            // Console.WriteLine(Predictor.PredictLinear("Tests", "sales", new DateTime(2018, 05, 01), new DateTime(2018, 05, 27), 1).ExpectedValue);
+            Console.WriteLine(Predictor.PredictLinear("Sales", "sales", new DateTime(2018, 05, 01), new DateTime(2018, 05, 27), 1).ExpectedValue);
+            PredictionReport PR = new PredictionReport();
+            PR.SaveReport("SalesPrediction", "SalesPred", new DateTime(2018, 05, 01), new DateTime(2018, 05, 27), "Sales", "sales", 05);
             StockReport test = new StockReport();
             test.SaveReport("StockAlerts", "PositiveLevel", "Stock", "stock", 33);
             test.SaveReport("StockAlerts", "NEgativeLevel2", "Stock", "stock", 112);

@@ -18,7 +18,11 @@ namespace PharmacyApplication
 
             string[] ReportContents = {
                     "--- Prediction Report ---",
-                    "Between the dates " + from.ToLongDateString() +" and " + to.ToLongDateString() + ", the prediction of ID:" + idToSearch  + " sold is " + Predictor.PredictLinear(workbooktable, table, from, to, idToSearch).ExpectedValue
+                    "ID              : "  + idToSearch,
+                    "From            : "  + from.ToLongDateString(),
+                    "To              : "  + to.ToLongDateString(),
+                    "Prediction Sold : " + Predictor.PredictLinear(workbooktable, table, from, to, idToSearch).ExpectedValue
+ 
 
             };
 
