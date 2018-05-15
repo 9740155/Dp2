@@ -158,10 +158,6 @@ namespace PharmacyApplication
 
             Prediction result = new Prediction(((1 - rSquared) * expected), expected);
 
-            Console.WriteLine("Total " + ySum);
-
-            Console.WriteLine("mx + c = {0}x + {1}", gradient, offset);
-
             return result;
         }
     }

@@ -39,12 +39,15 @@ namespace PharmacyApplication
             std.ShowDialog();//*/
 
             // Console.WriteLine(Predictor.PredictLinear("Tests", "sales", new DateTime(2018, 05, 01), new DateTime(2018, 05, 27), 1).ExpectedValue);
-            StockReport test = new StockReport();
+            /*StockReport test = new StockReport();
             test.SaveReport("StockAlerts", "PositiveLevel", "Stock", "stock", 33);
-            test.SaveReport("StockAlerts", "PositiveLevel", "Stock", "stock", 113);
+            test.SaveReport("StockAlerts", "PositiveLevel", "Stock", "stock", 113);//*/
 
+            //(new HomePage()).ShowDialog();
 
-            //  Console.ReadKey();
+            (new HomePage()).ShowDialog();
+
+            //Console.ReadKey();
         }
     }
 }
