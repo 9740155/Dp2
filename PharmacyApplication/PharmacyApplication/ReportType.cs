@@ -67,11 +67,9 @@ namespace PharmacyApplication
                 Directory.CreateDirectory(dir);
             }
 
-<<<<<<< HEAD
+
            _fullReportName = dir + "/" + reportName + "_" + dateString +"_" + timeString  + Database.DEFAULTEXTENSION;
-=======
-            _fullReportName = dir +"/"+ reportName + "_" + dateString +"_" + timeString  + Database.DEFAULTEXTENSION;
->>>>>>> report
+
 
             //Check Report exists
             if (!File.Exists(_fullReportName))

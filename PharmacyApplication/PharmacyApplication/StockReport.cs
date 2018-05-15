@@ -39,10 +39,10 @@ namespace PharmacyApplication
 
             if (stockRecord.isLow())
             {
-                alertstatus = "Stock levels are low";
+                alertstatus = "Low";
             }else
             {
-                alertstatus = "Stock levels are acceptable";
+                alertstatus = "Acceptable";
             }
 
             string[] ReportContents = {
