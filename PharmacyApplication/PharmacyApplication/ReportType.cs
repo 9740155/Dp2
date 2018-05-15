@@ -102,7 +102,7 @@ namespace PharmacyApplication
 
                     if (i < (toWrite.Length - 1))
                     {
-                        writer.WriteLine();
+                        writer.WriteLine("");
                     }
 
                     i += 1;

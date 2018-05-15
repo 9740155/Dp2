@@ -1,116 +1,116 @@
-int,string,int,int
-id,name,level,alert
-1,Purple Stuff,68,9
-2,Adalimumab,76,4
-3,Ledipasvir/sofosbuvir,44,0
-4,Etanercept,47,7
-5,Infliximab,10,8
-6,Rituximab,71,8
-7,Insulin glargine,9,5
-8,Bevacizumab,27,2
-9,Trastuzumab,79,8
-10,Lenalidomide,30,4
-11,Sofosbuvir,88,7
-12,Fluticasone propionate/salmeterol,89,4
-13,Rosuvastatin,55,9
-14,Green Stuff,93,5
-15,Abatacept,37,9
-16,Abiraterone,45,10
-17,Acetaminophen/hydrocodone,87,7
-18,Adalimumab,27,4
-19,Amphetamine mixed salts,44,8
-20,Amphetamine mixed salts,37,1
-21,Aripiprazole,78,7
-22,Atazanavir,44,1
-23,Atorvastatin,93,5
-24,Bevacizumab,96,1
-25,Budesonide,78,10
-26,Budesonide/formoterol,69,3
-27,Buprenorphine,83,2
-28,Capecitabine,82,7
-29,Celecoxib,23,0
-30,Ciclosporin ophthalmic emulsion,44,3
-31,Cinacalcet,40,3
-32,Dabigatran,54,3
-33,Darbepoetin alfa,78,9
-34,Darunavir,10,8
-35,Denosumab,20,5
-36,Dexlansoprazole,84,4
-37,Doxycycline,91,1
-38,Duloxetine,87,4
-39,Elvitegravir/cobicistat/emtricitabine/tenofovir,8,4
-40,Emtricitabine / Rilpivirine / Tenofovir disoproxil fumarate,20,2
-41,Emtricitabine/tenofovir/efavirenz,68,5
-42,Enoxaparin,76,4
-43,Epoetin alfa,14,4
-44,Epoetin alfa,21,9
-45,Esomeprazole,37,3
-46,Eszopiclone,41,4
-47,Etanercept,23,9
-48,Everolimus,58,5
-49,Ezetimibe,35,3
-50,Ezetimibe/simvastatin,66,1
-51,Fenofibrate,37,2
-52,Filgrastim,24,1
-53,Filgrastim,8,9
-54,fingolimod,15,4
-55,Fluticasone propionate,88,10
-56,Fluticasone/salmeterol,55,5
-57,Glatiramer,42,4
-58,Imatinib,83,5
-59,Infliximab,74,6
-60,Insulin aspart,12,10
-61,Insulin aspart,69,6
-62,Insulin detemir,69,2
-63,Insulin glargine,91,7
-64,Insulin glargine,29,4
-65,Insulin lispro,39,3
-66,Insulin lispro,34,4
-67,Interferon beta 1a,53,1
-68,Interferon beta 1a,25,6
-69,Interferon beta 1b,79,9
-70,Ipratropium bromide/salbutamol,56,2
-71,Levothyroxine,11,1
-72,Levothyroxine,25,2
-73,Lidocaine,92,0
-74,Liraglutide,9,3
-75,Lisdexamfetamine,91,2
-76,Memantine,17,5
-77,Methylphenidate,17,2
-78,Metoprolol,68,1
-79,Mometasone,93,6
-80,Olmesartan,21,7
-81,Olmesartan / hydrochlorothiazide,26,6
-82,Omalizumab,89,1
-83,Omega-3 fatty acid ethyl esters,67,8
-84,Oseltamivir,50,8
-85,Oxycodone,51,1
-86,Palivizumab,13,9
-87,Pemetrexed,85,2
-88,Pneumococcal conjugate vaccine,16,4
-89,Pregabalin,6,5
-90,Quetiapine,35,8
-91,Rabeprazole,41,5
-92,Raloxifene,69,10
-93,Raltegravir,47,7
-94,Ranibizumab,15,2
-95,Rituximab,63,4
-96,Rivaroxaban,99,8
-97,Rosuvastatin,46,0
-98,Salbutamol,87,0
-99,Salbutamol,98,10
-100,Sevelamer,59,6
-101,Sildenafil,82,10
-102,Sitagliptin,77,7
-103,Sitagliptin/metformin,63,0
-104,Solifenacin,49,10
-105,Tadalafil,72,9
-106,Telaprevir,36,10
-107,Tenofovir/emtricitabine,39,5
-108,Testosterone gel,50,10
-109,Tiotropium bromide,72,1
-110,Trastuzumab,60,10
-111,Ustekinumab,67,10
-112,Valproate,98,1
-113,Valsartan,4,10
-114,Zostavax,60,1
+"System.Int32","System.String","System.Int32","System.Int32"
+"id","name","level","alert"
+"1","PurpleStuff","68","9"
+"2","Adalimumab","76","4"
+"3","Ledipasvir/sofosbuvir","44","0"
+"4","Etanercept","47","7"
+"5","Infliximab","10","8"
+"6","Rituximab","71","8"
+"7","Insulinglargine","9","5"
+"8","Bevacizumab","27","2"
+"9","Trastuzumab","79","8"
+"10","Lenalidomide","30","4"
+"11","Sofosbuvir","88","7"
+"12","Fluticasonepropionate/salmeterol","89","4"
+"13","Rosuvastatin","55","9"
+"14","GreenStuff","93","5"
+"15","Abatacept","37","9"
+"16","Abiraterone","45","10"
+"17","Acetaminophen/hydrocodone","87","7"
+"18","Adalimumab","27","4"
+"19","Amphetaminemixedsalts","44","8"
+"20","Amphetaminemixedsalts","37","1"
+"21","Aripiprazole","78","7"
+"22","Atazanavir","44","1"
+"23","Atorvastatin","93","5"
+"24","Bevacizumab","96","1"
+"25","Budesonide","78","10"
+"26","Budesonide/formoterol","69","3"
+"27","Buprenorphine","83","2"
+"28","Capecitabine","82","7"
+"29","Celecoxib","23","0"
+"30","Ciclosporinophthalmicemulsion","44","3"
+"31","Cinacalcet","40","3"
+"32","Dabigatran","54","3"
+"33","Darbepoetinalfa","78","9"
+"34","Darunavir","10","8"
+"35","Denosumab","20","5"
+"36","Dexlansoprazole","84","4"
+"37","Doxycycline","91","1"
+"38","Duloxetine","87","4"
+"39","Elvitegravir/cobicistat/emtricitabine/tenofovir","8","4"
+"40","Emtricitabine/Rilpivirine/Tenofovirdisoproxilfumarate","20","2"
+"41","Emtricitabine/tenofovir/efavirenz","68","5"
+"42","Enoxaparin","76","4"
+"43","Epoetinalfa","14","4"
+"44","Epoetinalfa","21","9"
+"45","Esomeprazole","37","3"
+"46","Eszopiclone","41","4"
+"47","Etanercept","23","9"
+"48","Everolimus","58","5"
+"49","Ezetimibe","35","3"
+"50","Ezetimibe/simvastatin","66","1"
+"51","Fenofibrate","37","2"
+"52","Filgrastim","24","1"
+"53","Filgrastim","8","9"
+"54","fingolimod","15","4"
+"55","Fluticasonepropionate","88","10"
+"56","Fluticasone/salmeterol","55","5"
+"57","Glatiramer","42","4"
+"58","Imatinib","83","5"
+"59","Infliximab","74","6"
+"60","Insulinaspart","12","10"
+"61","Insulinaspart","69","6"
+"62","Insulindetemir","69","2"
+"63","Insulinglargine","91","7"
+"64","Insulinglargine","29","4"
+"65","Insulinlispro","39","3"
+"66","Insulinlispro","34","4"
+"67","Interferonbeta1a","53","1"
+"68","Interferonbeta1a","25","6"
+"69","Interferonbeta1b","79","9"
+"70","Ipratropiumbromide/salbutamol","56","2"
+"71","Levothyroxine","11","1"
+"72","Levothyroxine","25","2"
+"73","Lidocaine","92","0"
+"74","Liraglutide","9","3"
+"75","Lisdexamfetamine","91","2"
+"76","Memantine","17","5"
+"77","Methylphenidate","17","2"
+"78","Metoprolol","68","1"
+"79","Mometasone","93","6"
+"80","Olmesartan","21","7"
+"81","Olmesartan/hydrochlorothiazide","26","6"
+"82","Omalizumab","89","1"
+"83","Omega-3fattyacidethylesters","67","8"
+"84","Oseltamivir","50","8"
+"85","Oxycodone","51","1"
+"86","Palivizumab","13","9"
+"87","Pemetrexed","85","2"
+"88","Pneumococcalconjugatevaccine","16","4"
+"89","Pregabalin","6","5"
+"90","Quetiapine","35","8"
+"91","Rabeprazole","41","5"
+"92","Raloxifene","69","10"
+"93","Raltegravir","47","7"
+"94","Ranibizumab","15","2"
+"95","Rituximab","63","4"
+"96","Rivaroxaban","99","8"
+"97","Rosuvastatin","46","0"
+"98","Salbutamol","87","0"
+"99","Salbutamol","98","10"
+"100","Sevelamer","59","6"
+"101","Sildenafil","82","10"
+"102","Sitagliptin","77","7"
+"103","Sitagliptin/metformin","63","0"
+"104","Solifenacin","49","10"
+"105","Tadalafil","72","9"
+"106","Telaprevir","36","10"
+"107","Tenofovir/emtricitabine","39","5"
+"108","Testosteronegel","50","10"
+"109","Tiotropiumbromide","72","1"
+"110","Trastuzumab","60","10"
+"111","Ustekinumab","67","10"
+"112","Valproate","98","1"
+"113","Valsartan","4","10"
+"114","Zostavax","60","1"
