@@ -48,7 +48,9 @@ namespace PharmacyApplication.UserInterfaces
 
         private void Report_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            this.Hide();
+            (new CreateReport()).ShowDialog();
+            this.Show();
         }
 
         private void Sales_Click(object sender, EventArgs e)
