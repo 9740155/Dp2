@@ -97,7 +97,7 @@ namespace PharmacyApplication.UserInterfaces
             incrementMagnitude.Top = decrementMagnitude.Top;
             incrementMagnitude.Click += IncrementMagnitude_Click;
 
-            Button addStockType = new Button();
+            /*Button addStockType = new Button();
             this.Controls.Add(addStockType);
             addStockType.Text = "ADD";
             addStockType.Width = 2 * BUTTONSIZE;

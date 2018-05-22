@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace PharmacyApplication.UserInterfaces
 {
@@ -82,6 +83,24 @@ namespace PharmacyApplication.UserInterfaces
             {
                 PR.SaveReport("Demo", "salesPred", DateTime.Parse(_start.Text), DateTime.Parse(_end.Text), "Demo", "sales", i);
             }
+
+            
+
+            Process cmd = new Process();
+            cmd.StartInfo.FileName = "cmd.exe";
+            cmd.StartInfo.RedirectStandardInput = true;
+            cmd.StartInfo.RedirectStandardOutput = true;
+            cmd.StartInfo.CreateNoWindow = true;
+            cmd.StartInfo.UseShellExecute = false;
+            cmd.Start();
+
+            cmd.StandardInput.WriteLine("cd "+ '"'+ "C:/Users/jaeha/Documents/Swinburne/2018 Semester 1/DP2/Repo/PharmacyApplication/PharmacyApplication/bin/Debug" + '"');
+
+            cmd.StandardInput.WriteLine("notepad " +  PredictionReport._fullReportName);
+            cmd.StandardInput.Flush();
+            cmd.StandardInput.Close();
+            cmd.WaitForExit();
+            this.Close();
         }
     }
 }

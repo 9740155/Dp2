@@ -45,6 +45,31 @@ namespace PharmacyApplication
 
             //(new HomePage()).ShowDialog();
 
+            /*Database.CreateTable("Demo2", "stock", (new StockType(0, "stuff", 1, 1).FieldTypesToRead), new string[] {"ID", "Name", "Level", "Alerts"});
+
+            Console.ReadKey();
+
+            StockType st = new StockType(0, "stuff", 2, 1);
+
+            Console.ReadKey();
+
+            Database.WriteRecord("Demo2", "stock", st.Elements);
+
+            Console.ReadKey();
+
+            SalesRecord sale = new SalesRecord(1, "Jed", new DateTime(1, 1, 1), 7);
+
+            Console.ReadKey();
+
+            Database.CreateTable("Demo2", "sales", (sale.FieldTypesToRead), new string[] { "ID", "Name", "Date", "Quantity" });
+
+
+            Console.ReadKey();
+
+            Database.WriteRecord("Demo", "sales", sale.Elements);
+
+            Console.ReadKey();*/
+
             (new HomePage()).ShowDialog();
 
             //Console.ReadKey();
